@@ -162,9 +162,6 @@ function Linesearch()
     let repl = substitute(repl, "\\.", "\\\\.", "g")
     let repl = substitute(repl, "/", "\\\\/", "g")
     let repl = substitute(repl, "*", "\\\\*", "g")
-    " call setline(".", repl)
-    " echo repl
-    " call search(repl)
     let @/ = repl
 endfunction
 
@@ -182,9 +179,6 @@ function Linesearchnoheader()
     let repl = substitute(repl, "\\.", "\\\\.", "g")
     let repl = substitute(repl, "/", "\\\\/", "g")
     let repl = substitute(repl, "*", "\\\\*", "g")
-    " call setline(".", repl)
-    " echo repl
-    " call search(repl)
     let @/ = repl
 endfunction
 
