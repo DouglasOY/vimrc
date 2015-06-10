@@ -218,3 +218,6 @@ endfunction
 
 nnoremap <leader>nl :call Nohighlightnow()<cr>
 
+nnoremap <leader>t :execute 'normal "tyw'<cr>
+nnoremap <leader>p :execute 'normal dwh"tp'<cr>
+nnoremap <leader>s :execute "normal i "<Esc>
