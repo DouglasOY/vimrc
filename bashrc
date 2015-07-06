@@ -85,4 +85,5 @@ LS_COLORS='rs=0:di=01;36:ln=01;30:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:c
 export LS_COLORS
 
 # find  . -iname "*.[c|h]" | xargs -n1 -I "ZZZZZ" astyle --style=ansi --indent=spaces=8 --indent-switches --pad-oper --pad-header --add-brackets --suffix=none  "ZZZZZ"
+alias gitcolocal='git checkout $(git branch | grep -v "master" ) && git branch -av '
 
