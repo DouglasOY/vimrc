@@ -221,3 +221,28 @@ nnoremap <leader>nl :call Nohighlightnow()<cr>
 nnoremap <leader>t :execute 'normal "tyw'<cr>
 nnoremap <leader>p :execute 'normal dwh"tp'<cr>
 nnoremap <leader>s :execute "normal i "<Esc>
+
+function! CountDiffsVimdiff()
+    let winview = winsaveview() 
+    let num_diffs = 0
+    if &diff
+        let pos = getpos(".")
+        keepj sil exe 'normal! G'
+        let lnum = 1
+        let moved = 1
+        while moved
+            let startl = line(".")
+            keepj sil exe 'normal! [c'
+            let moved = line(".") - startl
+            if moved
+                let num_diffs+=1
+            endif
+        endwhile
+        call winrestview(winview)
+        call setpos(".",pos)
+    endif
+    return num_diffs
+endfunction
+
+nnoremap <leader>dc :let diffcounts = CountDiffsVimdiff()<cr>:echo "total number of changes is [" . diffcounts . "]"<cr>
+
