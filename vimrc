@@ -220,7 +220,6 @@ nnoremap <leader>nl :call Nohighlightnow()<cr>
 
 nnoremap <leader>t :execute 'normal "tyw'<cr>
 nnoremap <leader>p :execute 'normal dwh"tp'<cr>
-nnoremap <leader>s :execute "normal i "<Esc>
 
 function! CountDiffsVimdiff()
     let winview = winsaveview() 
@@ -245,4 +244,13 @@ function! CountDiffsVimdiff()
 endfunction
 
 nnoremap <leader>dc :let diffcounts = CountDiffsVimdiff()<cr>:echo "total number of changes is [" . diffcounts . "]"<cr>
+
+nmap <leader>ss :cs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <leader>sg :cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <leader>sc :cs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <leader>st :cs find t <C-R>=expand("<cword>")<CR><CR>
+nmap <leader>se :cs find e <C-R>=expand("<cword>")<CR><CR>
+nmap <leader>sf :cs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap <leader>si :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nmap <leader>sd :cs find d <C-R>=expand("<cword>")<CR><CR>
 
