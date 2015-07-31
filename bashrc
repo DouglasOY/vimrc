@@ -87,3 +87,6 @@ export LS_COLORS
 # find  . -iname "*.[c|h]" | xargs -n1 -I "ZZZZZ" astyle --style=ansi --indent=spaces=8 --indent-switches --pad-oper --pad-header --add-brackets --suffix=none  "ZZZZZ"
 alias gitcolocal='git checkout $(git branch | grep -v "master" ) && git branch -av '
 
+# Make data base, printed on\|# Finished Make data base on
+
+
