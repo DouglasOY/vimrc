@@ -255,6 +255,14 @@ nmap <leader>sf :cs find f <C-R>=expand("<cfile>")<CR><CR>
 nmap <leader>si :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
 nmap <leader>sd :cs find d <C-R>=expand("<cword>")<CR><CR>
 
+function! DebugEchoWordValue()
+    let line = getline(".")
+    let line = 'echo "' . line . ' = [${' . line . '}]"'
+    call setline(".", line)
+endfunction
+
+nnoremap <leader>ev :call DebugEchoWordValue()<cr>
+
 
 
 
