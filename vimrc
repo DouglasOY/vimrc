@@ -130,6 +130,7 @@ set clipboard=unnamed
 
 command ABD 'a,'bd
 command ABY 'a,'by
+command ZF  'a,'bfold | 'a
 map <C-a>   :'a,'by<cr>
 map <C-e>   :'a,'bd<cr>
 
@@ -253,4 +254,7 @@ nmap <leader>se :cs find e <C-R>=expand("<cword>")<CR><CR>
 nmap <leader>sf :cs find f <C-R>=expand("<cfile>")<CR><CR>
 nmap <leader>si :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
 nmap <leader>sd :cs find d <C-R>=expand("<cword>")<CR><CR>
+
+
+
 
