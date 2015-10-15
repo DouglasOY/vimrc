@@ -263,6 +263,8 @@ endfunction
 
 nnoremap <leader>ev :call DebugEchoWordValue()<cr>
 
-
-
+" Substitute with ascending numbers
+" %s/pattern/\="pattern" . (line('.') + 8800)/
+" %s/pattern88/pattern/
+" 
 
