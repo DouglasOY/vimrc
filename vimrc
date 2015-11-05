@@ -137,7 +137,11 @@ map <C-e>   :'a,'bd<cr>
 set vb t_vb=
 set paste
 set novisualbell
+
 colorscheme ron
+" colorscheme slate
+" colorscheme golden
+
 map <C-p>   :b#<cr>
 " MiniBufExpl Colors
 hi MBENormal               guifg=#808080 guibg=fg
