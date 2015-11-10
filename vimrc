@@ -272,3 +272,9 @@ nnoremap <leader>ev :call DebugEchoWordValue()<cr>
 " %s/pattern88/pattern/
 " 
 
+function! VsbFunction (arg1)
+  execute 'vertical sbuffer ' a:arg1
+endfunction
+
+command -nargs=1 Vsb call VsbFunction(<f-args>)
+
