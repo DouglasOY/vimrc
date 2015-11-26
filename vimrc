@@ -278,3 +278,21 @@ endfunction
 
 command -nargs=1 Vsb call VsbFunction(<f-args>)
 
+
+" function! FoldPreprocessor()
+"     set foldmarker=#ifdef,#endif
+"     set foldmethod=marker
+" endfunction
+" autocmd FileType *.[ch]{,pp} call FoldPreprocessor()
+" 
+" " You might also want to consider using:
+" set foldmarker=#if,#endif
+
+" navigate preprocessor conditional blocks with the % key
+" Also, [# and ]# navigate up/down.
+" go to the start of a conditional block (perhaps with /^#Enter) 
+" then
+"  zf%      -- fold to next conditional directive
+"  v2]#zf   -- fold to second next directive (e.g. #else... #endif)
+
+
