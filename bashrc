@@ -102,3 +102,7 @@ HISTFILESIZE=2000
 HISTIGNORE=cd:ls:bg:fg:exit
 
 
+# grep -F -x -v -f fileB fileA
+# This works by using each line in fileB as a pattern (-f fileB) and treating it as a plain string to match (not a regular regex) (-F). You force the match to happen on the whole line (-x) and print out only the lines that don't match (-v). Therefore you are printing out the lines in fileA that don't contain the same data as any line in fileB.
+# diff --old-line-format="" --unchanged-line-format="" --new-line-format="%L" fileA fileAB >> fileB
+
