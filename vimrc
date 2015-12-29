@@ -31,11 +31,9 @@ filetype plugin on
 
 if &term=="xterm"
      set t_Co=256
-     set t_Sb=[4%dm
-     set t_Sf=[3%dm
 endif
 
-" Don't wake up system with blinking cursor:
+" Do not wake up system with blinking cursor:
 let &guicursor = &guicursor . ",a:blinkon0"
 
 "" ===================================================
