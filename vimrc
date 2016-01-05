@@ -273,9 +273,14 @@ nnoremap <leader>ev :call DebugEchoWordValue()<cr>
 function! VsbFunction (arg1)
   execute 'vertical sbuffer ' a:arg1
 endfunction
-
 command -nargs=1 Vsb call VsbFunction(<f-args>)
 
+function! ExecMultiSubstitutions()
+  execute 's=\${=!=g'
+  execute 's=}=!=g'
+  execute 's="==g'
+endfunction
+nnoremap <leader>bb :call ExecMultiSubstitutions()<cr>
 
 
 " function! FoldPreprocessor()
