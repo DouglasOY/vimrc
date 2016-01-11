@@ -88,6 +88,7 @@ export LS_COLORS
 alias gitcolocal='git checkout $(git branch | grep -v "master" ) && git branch -av '
 
 # Make data base, printed on\|# Finished Make data base on
+# \(cd .* && make.*\|# Make data base, printed on.*\|# make\[.\]: Entering directory.*\|# make\[.\]: Leaving directory.*\|^make .*\)
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
