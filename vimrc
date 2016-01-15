@@ -299,10 +299,12 @@ nnoremap <leader>bb :call ExecMultiSubstitutions()<cr>
 "  zf%      -- fold to next conditional directive
 "  v2]#zf   -- fold to second next directive (e.g. #else... #endif)
 
-" :Ex will take you back (and show you what you edited and didn't save).
-" The proper command for returning to the netrw listing is :Rex[plore]. You can run it even after you have jumped to and from dozens of files.
-" Ctrl-O to go back to the previous buffer.
-" You can go back to the last buffer using :b#.
-" Ctrl ^ to go back and forth b/w two buffers.
+" :[N]Explore[!]  [dir]... Explore directory of current file      :Explore
+" :[N]Hexplore[!] [dir]... Horizontal Split & Explore             :Hexplore
+" :Rexplore            ... Return to Explorer                     :Rexplore
+" :[N]Sexplore[!] [dir]... Split&Explore current file's directory :Sexplore
+" :Texplore       [dir]... Tab              & Explore             :Texplore
+" :[N]Vexplore[!] [dir]... Vertical   Split & Explore             :Vexplore
+
 
 
