@@ -282,6 +282,11 @@ function! ExecMultiSubstitutions()
 endfunction
 nnoremap <leader>bb :call ExecMultiSubstitutions()<cr>
 
+function! CountNumberOfMatches()
+    let line = @/
+    execute '%s/' . line . '//gn'
+endfunction
+nnoremap <leader>mc :call CountNumberOfMatches()<cr>
 
 " function! FoldPreprocessor()
 "     set foldmarker=#ifdef,#endif
