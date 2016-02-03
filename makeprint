@@ -1,0 +1,34 @@
+make-3.81
+
+print_data_base ()
+{
+  printf (_("\n# Make data base, printed on %s"), ctime (&when));
+  print_variable_data_base ();
+    -- puts (_("\n# Variables\n"));
+  print_dir_data_base ();
+    -- puts (_("\n# Directories\n"));
+  print_rule_data_base ();
+    -- puts (_("\n# Implicit Rules"));
+  print_file_data_base ();
+    -- puts (_("\n# Files"));
+  print_vpath_data_base ();
+    -- puts (_("\n# VPATH Search Paths\n"));
+  strcache_print_stats ("#");
+  printf (_("\n# Finished Make data base on %s\n"), ctime (&when));
+}
+
+
+# Make data base, printed on 
+# Variables
+# Directories
+# Implicit Rules
+# Files
+# VPATH Search Paths
+# Finished Make data base on 
+
+
+
+
+
+^# Make data base, printed on.*\|^# Variables$\|^# Directories$\|^# Implicit Rules$\|^# Files$\|^# VPATH Search Paths$\|^# Finished Make data base on.*
+
