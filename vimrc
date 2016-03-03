@@ -198,6 +198,7 @@ set splitright
 """"""""""""""""""""""""""""""
 " Fast saving
 nmap <leader>w :w<cr>
+nmap <leader>q :qa<cr>
 
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
 map <space> /
