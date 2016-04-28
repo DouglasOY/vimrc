@@ -3,4 +3,8 @@ airline.vim
 bufexplorer.vim
 rainbow.vim
 table-mode.vim
-pi_netrw.txt
+netrwPlugin.vim  
+minibufexpl.vim  
+NERD_commenter.vim  
+vim-gitgutter
+
