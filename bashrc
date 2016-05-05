@@ -2,6 +2,7 @@
 # annabel.lee
 export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;4;32'
+alias cgrep='grep --color=always '
 
 # export PS1="\[\e[1;33m\]$(ppwd \l)\u:\[\e[1;31m\]\w> \[\e[0m\]"
 # export PS1="\[\e[1;33m\]\u:\[\e[1;31m\]\w\n> \[\e[0m\]"
