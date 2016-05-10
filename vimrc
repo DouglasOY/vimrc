@@ -211,6 +211,10 @@ map <C-a>   :'a,'by<cr>
 map <C-e>   :'a,'bd<cr>
 
 
+nmap <F9> :q<CR>
+nnoremap <silent> <F8> :BufExplorerVerticalSplit<CR>
+nmap <F12> :w<CR>
+
 """"""""""""""""""""""""""""""
 " => cscope
 """"""""""""""""""""""""""""""
@@ -280,8 +284,6 @@ endfunction
 nnoremap <leader>h :call Linesearchnoheader()<cr>
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 nnoremap <leader>ce :cd %:p:h<CR>:e .<CR>
-
-nnoremap <F8> :vertical wincmd f<CR>
 
 function! Appendwordtoregister()
     let var_s = getreg('/', 1)

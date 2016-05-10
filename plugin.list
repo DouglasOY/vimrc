@@ -4,7 +4,7 @@ bufexplorer.vim
 rainbow.vim
 table-mode.vim
 netrwPlugin.vim  
-minibufexpl.vim  
+# minibufexpl.vim  
 NERD_commenter.vim  
 vim-gitgutter
-
+grep.vim
