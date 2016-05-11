@@ -197,23 +197,88 @@ set splitright
 " => map, command
 """"""""""""""""""""""""""""""
 " Fast saving
-nmap <leader>w :w<cr>
-nmap <leader>q :qa<cr>
+nmap <F9> :q<CR>
+nmap <F12> :w<CR>
 
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
 map <space> /
 map <c-space> ?
 
+" Fast copying
 command! ABD 'a,'bd
 command! ABY 'a,'by
 command! ZF  'a,'bfold | 'a
 map <C-a>   :'a,'by<cr>
 map <C-e>   :'a,'bd<cr>
 
+nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
+nnoremap <leader>ce :cd %:p:h<CR>:e .<CR>
 
-nmap <F9> :q<CR>
+""""""""""""""""""""""""""""""
+" => airline-themes.vim
+""""""""""""""""""""""""""""""
+" hybrid
+" kalisi
+" kolor
+" jellybeans
+" light
+" luna
+let g:airline_theme='papercolor'
+let g:airline#extensions#whitespace#enabled = 0
+" let g:airline#extensions#whitespace#checks = [ 'indent', 'trailing', 'long', 'mixed-indent-file' ]
+
+
+""""""""""""""""""""""""""""""
+" => rainbow.vim
+""""""""""""""""""""""""""""""
+let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
+
+
+""""""""""""""""""""""""""""""
+" => bufexplorer.vim
+""""""""""""""""""""""""""""""
 nnoremap <silent> <F8> :BufExplorerVerticalSplit<CR>
-nmap <F12> :w<CR>
+
+
+""""""""""""""""""""""""""""""
+" => grep.vim
+""""""""""""""""""""""""""""""
+"    :Grep   [<grep_options>] [<search_pattern> [<file_name(s)>]]
+"    :Bgrep  [<grep_options>] [<search_pattern>]
+"       :let Grep_Path = '/bin/grep'
+"       :let Grep_Find_Path = '/usr/bin/find'
+"       :let Grep_Xargs_Path = '/usr/bin/xargs'
+"       :let Grep_Default_Filelist = '*.[chS]'
+"       :let Grep_Default_Options = '-i'
+"       :let Grep_Skip_Dirs = 'dir1 dir2 dir3'
+"       :let Grep_Skip_Files = '*.bak *~'
+"       :let Grep_OpenQuickfixWindow = 0
+"       :let Grep_Shell_Quote_Char = "'"
+"       :let Grep_Shell_Escape_Char = "'"
+
+set grepprg=grep 
+let Grep_Default_Options = '-r -n'
+let Grep_Default_Filelist = '.'
+nnoremap <silent> <F3> :Bgrep<CR>
+nnoremap <silent> <F4> :Grep<CR>
+
+
+""""""""""""""""""""""""""""""
+" => ctrlp.vim
+""""""""""""""""""""""""""""""
+let g:ctrlp_cmd = 'CtrlPMRUFiles'
+
+
+""""""""""""""""""""""""""""""
+" => MiniBufExpl Colors
+""""""""""""""""""""""""""""""
+hi MBENormal               guifg=#808080 guibg=fg
+hi MBEChanged              guifg=#CD5907 guibg=fg
+hi MBEVisibleNormal        guifg=#5DC2D6 guibg=fg
+hi MBEVisibleChanged       guifg=#F1266F guibg=fg
+hi MBEVisibleActiveNormal  guifg=#A6DB29 guibg=fg
+hi MBEVisibleActiveChanged guifg=#F1266F guibg=fg
+
 
 """"""""""""""""""""""""""""""
 " => cscope
@@ -246,15 +311,9 @@ nmap <leader>sd :cs find d <C-R>=expand("<cword>")<CR><CR>
 " => Helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" MiniBufExpl Colors
-hi MBENormal               guifg=#808080 guibg=fg
-hi MBEChanged              guifg=#CD5907 guibg=fg
-hi MBEVisibleNormal        guifg=#5DC2D6 guibg=fg
-hi MBEVisibleChanged       guifg=#F1266F guibg=fg
-hi MBEVisibleActiveNormal  guifg=#A6DB29 guibg=fg
-hi MBEVisibleActiveChanged guifg=#F1266F guibg=fg
-
-
+""""""""""""""""""""""""""""""
+" => search current line
+""""""""""""""""""""""""""""""
 function! Linesearch()
     let line = getline(".")
     let repl = substitute(line, "\\", "\\\\\\\\", "g")
@@ -265,10 +324,12 @@ function! Linesearch()
     let repl = substitute(repl, "*", "\\\\*", "g")
     let @/ = repl
 endfunction
-
 nnoremap <leader>l :call Linesearch()<cr>
 nnoremap <leader>/ :echo @/<cr>
 
+""""""""""""""""""""""""""""""
+" => search current line, without header, for patch file
+""""""""""""""""""""""""""""""
 function! Linesearchnoheader()
     let line = getline(".")
     let repl = substitute(line, "^.\\s*", "", "")
@@ -280,11 +341,11 @@ function! Linesearchnoheader()
     let repl = substitute(repl, "*", "\\\\*", "g")
     let @/ = repl
 endfunction
-
 nnoremap <leader>h :call Linesearchnoheader()<cr>
-nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
-nnoremap <leader>ce :cd %:p:h<CR>:e .<CR>
 
+""""""""""""""""""""""""""""""
+" => 
+""""""""""""""""""""""""""""""
 function! Appendwordtoregister()
     let var_s = getreg('/', 1)
     let var_smode = getregtype('/')
@@ -302,20 +363,22 @@ function! Appendwordtoregister()
 
     call setreg('/', var_s, var_smode)
 endfunction
-
 nnoremap <leader>a :call Appendwordtoregister()<cr>
 
+""""""""""""""""""""""""""""""
+" => do not highlight current word
+""""""""""""""""""""""""""""""
 function! Nohighlightnow()
     let var_s = 'abcdefghijklmnopqrstuvwxyz'
     let var_smode = getregtype('/')
     call setreg('/', var_s, var_smode)
 endfunction
-
 nnoremap <leader>nl :call Nohighlightnow()<cr>
 
-nnoremap <leader>t :execute 'normal "tyw'<cr>
-nnoremap <leader>p :execute 'normal dwh"tp'<cr>
 
+""""""""""""""""""""""""""""""
+" => count diffs in vimdiff
+""""""""""""""""""""""""""""""
 function! CountDiffsVimdiff()
     let winview = winsaveview() 
     let num_diffs = 0
@@ -337,23 +400,40 @@ function! CountDiffsVimdiff()
     endif
     return num_diffs
 endfunction
-
 nnoremap <leader>dc :let diffcounts = CountDiffsVimdiff()<cr>:echo "total number of changes is [" . diffcounts . "]"<cr>
 
+""""""""""""""""""""""""""""""
+" => count matchs
+""""""""""""""""""""""""""""""
+function! CountNumberOfMatches()
+    let line = @/
+    execute '%s/' . line . '//gn'
+endfunction
+nnoremap <leader>mc :call CountNumberOfMatches()<cr>
 
+
+""""""""""""""""""""""""""""""
+" => 
+""""""""""""""""""""""""""""""
 function! DebugEchoWordValue()
     let line = getline(".")
     let line = 'echo "' . line . ' = [${' . line . '}]"'
     call setline(".", line)
 endfunction
-
 nnoremap <leader>ev :call DebugEchoWordValue()<cr>
 
+
+""""""""""""""""""""""""""""""
+" => 
+""""""""""""""""""""""""""""""
 function! VsbFunction (arg1)
   execute 'vertical sbuffer ' a:arg1
 endfunction
 command! -nargs=1 Vsb call VsbFunction(<f-args>)
 
+""""""""""""""""""""""""""""""
+" => 
+""""""""""""""""""""""""""""""
 function! ExecMultiSubstitutions()
   execute 's=\${=!=g'
   execute 's=}=!=g'
@@ -361,11 +441,29 @@ function! ExecMultiSubstitutions()
 endfunction
 nnoremap <leader>bb :call ExecMultiSubstitutions()<cr>
 
-function! CountNumberOfMatches()
-    let line = @/
-    execute '%s/' . line . '//gn'
+
+""""""""""""""""""""""""""""""
+" => color another word
+""""""""""""""""""""""""""""""
+" MatchParen     xxx term=reverse ctermbg=6 guibg=DarkCyan
+" Conceal        xxx ctermfg=7 ctermbg=242 guifg=LightGrey guibg=DarkGrey
+" SpellBad       xxx term=reverse ctermbg=9 gui=undercurl guisp=Red
+" SpellCap       xxx term=reverse ctermbg=12 gui=undercurl guisp=Blue
+" SpellRare      xxx term=reverse ctermbg=13 gui=undercurl guisp=Magenta
+" SpellLocal     xxx term=underline ctermbg=14 gui=undercurl guisp=Cyan
+
+function! ColorAnotherWord(colorgroup)
+    let curword = expand('<cword>')
+    let curword = "/" . curword . "/"
+    execute 'match ' . a:colorgroup  . ' ' . curword
 endfunction
-nnoremap <leader>mc :call CountNumberOfMatches()<cr>
+
+nnoremap <leader>m1 :call ColorAnotherWord('SpellCap')<cr>
+nnoremap <leader>m2 :call ColorAnotherWord('SpellRare')<cr>
+nnoremap <leader>m3 :call ColorAnotherWord('MatchParen')<cr>
+nnoremap <leader>m4 :call ColorAnotherWord('Conceal')<cr>
+nnoremap <leader>m5 :call ColorAnotherWord('SpellLocal')<cr>
+nnoremap <leader>m6 :call ColorAnotherWord('SpellBad')<cr>
 
 
 
@@ -403,33 +501,5 @@ nnoremap <leader>mc :call CountNumberOfMatches()<cr>
 " colorscheme golden
 " colorscheme vividchalk
 " colorscheme vibrantink
-" let g:airline_theme='papercolor'
-" let g:airline#extensions#whitespace#checks = [ 'indent', 'trailing', 'long', 'mixed-indent-file' ]
-
-" let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
-
-" let g:rainbow_conf = {
-" \	'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
-" \	'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
-" \	'operators': '_,_',
-" \	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
-" \	'separately': {
-" \		'*': {},
-" \		'tex': {
-" \			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
-" \		},
-" \		'lisp': {
-" \			'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
-" \		},
-" \		'vim': {
-" \			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
-" \		},
-" \		'html': {
-" \			'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
-" \		},
-" \		'css': 0,
-" \	}
-" \}
-
 
 
