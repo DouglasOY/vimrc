@@ -452,18 +452,19 @@ nnoremap <leader>bb :call ExecMultiSubstitutions()<cr>
 " SpellRare      xxx term=reverse ctermbg=13 gui=undercurl guisp=Magenta
 " SpellLocal     xxx term=underline ctermbg=14 gui=undercurl guisp=Cyan
 
-function! ColorAnotherWord(colorgroup)
+function! ColorAnotherWord(type, colorgroup)
     let curword = expand('<cword>')
     let curword = "/" . curword . "/"
-    execute 'match ' . a:colorgroup  . ' ' . curword
+    execute a:type . ' ' . a:colorgroup  . ' ' . curword
 endfunction
 
-nnoremap <leader>m1 :call ColorAnotherWord('SpellCap')<cr>
-nnoremap <leader>m2 :call ColorAnotherWord('SpellRare')<cr>
-nnoremap <leader>m3 :call ColorAnotherWord('MatchParen')<cr>
-nnoremap <leader>m4 :call ColorAnotherWord('Conceal')<cr>
-nnoremap <leader>m5 :call ColorAnotherWord('SpellLocal')<cr>
-nnoremap <leader>m6 :call ColorAnotherWord('SpellBad')<cr>
+nnoremap <leader>m1 :call ColorAnotherWord('match', 'SpellCap')<cr>
+nnoremap <leader>m2 :call ColorAnotherWord('2match', 'SpellRare')<cr>
+nnoremap <leader>m3 :call ColorAnotherWord('3match', 'MatchParen')<cr>
+nnoremap <leader>m4 :call ColorAnotherWord('match', 'Conceal')<cr>
+nnoremap <leader>m5 :call ColorAnotherWord('2match', 'SpellLocal')<cr>
+nnoremap <leader>m6 :call ColorAnotherWord('3match', 'SpellBad')<cr>
+nnoremap <leader>mn :match none<cr>:2match none<cr>:3match none<cr>
 
 
 
