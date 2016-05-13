@@ -257,10 +257,10 @@ nnoremap <silent> <F8> :BufExplorerVerticalSplit<CR>
 "       :let Grep_Shell_Escape_Char = "'"
 
 set grepprg=grep 
-let Grep_Default_Options = '-r -n'
-let Grep_Default_Filelist = '.'
 nnoremap <silent> <F3> :Bgrep<CR>
-nnoremap <silent> <F4> :Grep<CR>
+nnoremap <silent> <F4> :Rgrep<CR>
+nnoremap <leader>cn :cnext<CR>
+nnoremap <leader>cp :cprevious<CR>
 
 
 """"""""""""""""""""""""""""""
