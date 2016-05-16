@@ -238,6 +238,9 @@ let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 " => bufexplorer.vim
 """"""""""""""""""""""""""""""
 nnoremap <silent> <F8> :BufExplorerVerticalSplit<CR>
+nnoremap <silent> <F5> :bnext<CR>
+nnoremap <silent> <F6> :bNext<CR>
+nnoremap <silent> <C-F5> :bNext<CR>
 
 
 """"""""""""""""""""""""""""""
@@ -259,6 +262,8 @@ nnoremap <silent> <F8> :BufExplorerVerticalSplit<CR>
 set grepprg=grep 
 nnoremap <silent> <F3> :Bgrep<CR>
 nnoremap <silent> <F4> :Rgrep<CR>
+nnoremap <silent> <F2> :cnext<CR>
+nnoremap <silent> <C-F2> :cNext<CR>
 nnoremap <leader>cn :cnext<CR>
 nnoremap <leader>cp :cprevious<CR>
 
