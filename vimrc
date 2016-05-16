@@ -275,6 +275,14 @@ let g:ctrlp_cmd = 'CtrlPMRUFiles'
 
 
 """"""""""""""""""""""""""""""
+" => winmanager.vim
+""""""""""""""""""""""""""""""
+map <leader>wt :WMToggle<cr>
+map <leader>wf :FirstExplorerWindow<cr>
+map <leader>wb :BottomExplorerWindow<cr>
+
+
+""""""""""""""""""""""""""""""
 " => MiniBufExpl Colors
 """"""""""""""""""""""""""""""
 hi MBENormal               guifg=#808080 guibg=fg

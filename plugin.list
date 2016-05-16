@@ -8,3 +8,4 @@ netrwPlugin.vim
 NERD_commenter.vim  
 vim-gitgutter
 grep.vim
+winmanager.vim
