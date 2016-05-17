@@ -304,21 +304,20 @@ if has("cscope") && filereadable("/usr/bin/cscope")
    " add any database in current directory
    if filereadable("cscope.out")
       cs add cscope.out
-   " else add database pointed to by environment
-   elseif $CSCOPE_DB != ""
-      cs add $CSCOPE_DB
    endif
    set csverb
 endif
 
-nmap <leader>ss :cs find s <C-R>=expand("<cword>")<CR><CR>
-nmap <leader>sg :cs find g <C-R>=expand("<cword>")<CR><CR>
-nmap <leader>sc :cs find c <C-R>=expand("<cword>")<CR><CR>
-nmap <leader>st :cs find t <C-R>=expand("<cword>")<CR><CR>
-nmap <leader>se :cs find e <C-R>=expand("<cword>")<CR><CR>
-nmap <leader>sf :cs find f <C-R>=expand("<cfile>")<CR><CR>
-nmap <leader>si :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-nmap <leader>sd :cs find d <C-R>=expand("<cword>")<CR><CR>
+nnoremap <leader>ca :cscope add /home/user/cscopedb/cscope.out.project<CR>
+
+nnoremap <leader>fd :cs find g <C-R>=expand("<cword>")<CR><CR>
+nnoremap <leader>fc :cs find c <C-R>=expand("<cword>")<CR><CR>
+nnoremap <leader>fs :cs find s <C-R>=expand("<cword>")<CR><CR>
+nnoremap <leader>fe :cs find e <C-R>=expand("<cword>")<CR><CR>
+nnoremap <leader>ft :cs find t <C-R>=expand("<cword>")<CR><CR>
+nnoremap <leader>fi :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nnoremap <leader>ff :cs find f <C-R>=expand("<cfile>")<CR><CR>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
