@@ -178,7 +178,7 @@ set comments=b:#,:%,fb:-,n:),n:> fo=cqrt
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 set clipboard=unnamed
 
-set paste
+" set paste
 
 """"""""""""""""""""""""""""""
 " => Status line
@@ -237,10 +237,18 @@ let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 """"""""""""""""""""""""""""""
 " => bufexplorer.vim
 """"""""""""""""""""""""""""""
+" nnoremap <script> <silent> <nowait> <buffer> <F8> :call <SID>Close()<CR>
 nnoremap <silent> <F8> :BufExplorerVerticalSplit<CR>
 nnoremap <silent> <F5> :bnext<CR>
 nnoremap <silent> <F6> :bNext<CR>
 nnoremap <silent> <C-F5> :bNext<CR>
+
+
+""""""""""""""""""""""""""""""
+" => netrw.vim
+""""""""""""""""""""""""""""""
+" nnoremap <buffer> <F7> :quit<cr>  -- netrw.vim
+nnoremap <silent> <F7> :Vexplore<CR>
 
 
 """"""""""""""""""""""""""""""
