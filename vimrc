@@ -215,6 +215,17 @@ nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 nnoremap <leader>ce :cd %:p:h<CR>:e .<CR>
 
 """"""""""""""""""""""""""""""
+" switch between panes 
+""""""""""""""""""""""""""""""
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+nnoremap <Tab> <c-w>w
+nnoremap <bs> <c-w>W
+
+""""""""""""""""""""""""""""""
 " => airline-themes.vim
 """"""""""""""""""""""""""""""
 " hybrid
@@ -523,4 +534,4 @@ nnoremap <leader>mn :match none<cr>:2match none<cr>:3match none<cr>
 " colorscheme vividchalk
 " colorscheme vibrantink
 
-
+ 
