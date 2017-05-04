@@ -534,4 +534,17 @@ nnoremap <leader>mn :match none<cr>:2match none<cr>:3match none<cr>
 " colorscheme vividchalk
 " colorscheme vibrantink
 
- 
+function! CamelToUnderline()
+    let origname = @/
+    let newname = substitute(origname, "\\", "", "g")
+    let newname = substitute(newname, "<", "", "")
+    let newname = substitute(newname, ">", "", "")
+    " let newname = substitute(newname, "\\([a-z]\\)\\([A-Z]\\)", "\\1_\\l\\2", "g")
+    let newname = substitute(newname, "\\([A-Z]\\)", "_\\l\\1", "g")
+    execute '%s/\<' . origname . '\>/' . newname . '/g'
+    " echo "origname = " . origname
+    " echo "newname = " . newname
+endfunction
+nnoremap <leader>cu :call CamelToUnderline()<cr>
+
+silent! map <F2> :b1<CR>
