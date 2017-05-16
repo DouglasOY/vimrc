@@ -9,7 +9,7 @@ hi cFunction gui=NONE cterm=bold  ctermfg=Red
 " Highlight All Array
 "========================================================
 syn match   cArray "\<[a-zA-Z_][a-zA-Z_0-9]*\>\s*\["me=e-1
-hi cArray gui=NONE cterm=bold  ctermfg=Magenta
+hi cArray gui=NONE  ctermfg=Magenta
 
 "========================================================
 " Highlight All Variables
