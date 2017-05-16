@@ -63,3 +63,4 @@ hi cLogicalOperator      cterm=bold    ctermfg=Yellow
 hi cLogicalOperatorError cterm=bold    ctermfg=Yellow
 
 
+" c.vim + rainbow_parentheses.vim  =~= source insight
