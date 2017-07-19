@@ -548,3 +548,19 @@ endfunction
 nnoremap <leader>cu :call CamelToUnderline()<cr>
 
 silent! map <F2> :b1<CR>
+
+
+""""""""""""""""""""""""""""""
+" => global increasing number 
+""""""""""""""""""""""""""""""
+let g:globalincreasingcounter = 0
+function! GlobalIncreasingNumber()
+    let g:globalincreasingcounter += 1
+    return g:globalincreasingcounter
+endfunction
+
+" %s/\d00/\="[" . GlobalIncreasingNumber(). "]"/
+" let @/='\d00' | keepjumps silent execute 'normal! gg' | for i in range(1, 9) | keepjumps silent execute 'normal! n' | execute 's/\d00/[' . i . ']/'  | endfor
+"
+
+
