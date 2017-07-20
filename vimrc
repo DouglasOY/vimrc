@@ -549,6 +549,7 @@ nnoremap <leader>cu :call CamelToUnderline()<cr>
 
 silent! map <F2> :b1<CR>
 
+nnoremap <Leader><Bar> :new<CR>:set buftype=nofile bufhidden=wipe noswapfile<CR>
 
 """"""""""""""""""""""""""""""
 " => global increasing number 
