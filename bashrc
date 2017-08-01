@@ -4,8 +4,15 @@ export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;4;32'
 alias cgrep='grep --color=always '
 
-# export PS1="\[\e[1;33m\]$(ppwd \l)\u:\[\e[1;31m\]\w> \[\e[0m\]"
-# export PS1="\[\e[1;33m\]\u:\[\e[1;31m\]\w\n> \[\e[0m\]"
+
+# root Yellow and Red and Magenta
+# export PS1="\[\e[1;33m\]\u:\[\e[1;31m\]\w\n# \[\e[0m\]"
+# di=01;35
+#
+# user Gray and Green and Blue
+# export PS1="\[\e[1;30m\]\u:\[\e[1;32m\]\w\n$ \[\e[0m\]"
+# di=01;36
+#
 export PS1="\[\e[1;36m\]\u:\[\e[1;31m\]\w\n> \[\e[0m\]"
 
 # colorful man page
