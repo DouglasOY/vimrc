@@ -1,26 +1,65 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Vundle
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=$VIM/bundle/Vundle.vim/
+call vundle#begin('$VIM/vundle/')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'jnurmine/Zenburn'
+Plugin 'nanotech/jellybeans.vim'
+Plugin 'joshdick/onedark.vim'
+Plugin 'rakr/vim-one'
+Plugin 'jacoborus/tender.vim'
+
+Plugin 'fatih/vim-go'
+Plugin 'tomasr/molokai'
+
+" nerdtree, ctrlp, vimgrep, tools for vim IDE
+Plugin 'scrooloose/nerdtree'
+Plugin 'https://github.com/kien/ctrlp.vim.git'
+
+Plugin 'luochen1990/rainbow'
+
+Plugin 'Valloric/YouCompleteMe'
+
+Plugin 'mileszs/ack.vim'
+
+Plugin 'vim-scripts/DrawIt'
+Plugin 'dhruvasagar/vim-table-mode'
+Plugin 'godlygeek/tabular'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nocompatible	" Use Vim defaults (much better!)
-
-" Enable filetype plugins
-filetype plugin on
-filetype indent on
-
 " Set to auto read when a file is changed from the outside
 set autoread
+
+set bs=indent,eol,start		" allow backspacing over everything in insert mode
+set history=200		" keep 200 lines of command line history
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
 let mapleader = ","
 let g:mapleader = ","
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set scrolloff=7
-set history=200
 
 " Turn on the WiLd menu
 set wildmenu
@@ -41,17 +80,10 @@ set hidden
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 
-" Ignore case when searching
-set ignorecase
-
-" When searching try to be smart about cases 
-" set smartcase
-
 " Highlight search results
 set hlsearch
 
 " Makes search act like search in modern browsers
-" set incsearch
 set noincsearch
 
 " Don't redraw while executing macros (good performance config)
@@ -75,7 +107,6 @@ set tm=500
 set viminfo='20,\"50	" read/write a .viminfo file, don't store more " than 50 lines of registers
 " set viminfo^=%
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -83,7 +114,6 @@ set viminfo='20,\"50	" read/write a .viminfo file, don't store more " than 50 li
 syntax enable
 
 set background=dark
-colorscheme desert
 
 if &term=="xterm"
      set t_Co=256
@@ -105,10 +135,6 @@ set encoding=utf8
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 
-" Do not wake up system with blinking cursor:
-let &guicursor = &guicursor . ",a:blinkon0"
-
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -117,14 +143,12 @@ set nobackup
 set nowb
 set noswapfile
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ==> automatically indent lines (default)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set autoindent
+set autoindent 		" always set autoindenting on
 set cindent
 set smartindent
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
@@ -145,18 +169,8 @@ set number
 
 set nolist
 
-"" In console mode, set mouse=v and set nonumber, then right-click it to copy .
-"" In gvim, set mouse=a, apply command y to copy.
-set mouse=v
-" set mouse=a
-
-"" autocmd GUIEnter * simalt ~x
-
-"" set guioptions-=T
-set guioptions=
-
 " number of undos
-set undolevels=200
+set undolevels=100
 
 " do i have a fast terminal?
 set nottyfast
@@ -173,12 +187,8 @@ set updatecount=75
 " comment types
 set comments=b:#,:%,fb:-,n:),n:> fo=cqrt
 
-" au GUIEnter * simalt ~x
-
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 set clipboard=unnamed
-
-" set paste
 
 """"""""""""""""""""""""""""""
 " => Status line
@@ -186,165 +196,43 @@ set clipboard=unnamed
 " Always show the status line
 set laststatus=2
 
-" Format the status line
-" set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
-
 set splitbelow 
 set splitright 
 
+""""""""""""""""""""""""""""""
+" => vimgrep
+""""""""""""""""""""""""""""""
+silent! map <F2> :b#<CR>
+silent! map <F3> :cnext<CR>
+silent! map <F4> :cprev<CR>
+
+function! VimgrepHightWord()
+    let curword = expand('<cword>')
+    execute 'vimgrep /' . curword . '/j  **'
+endfunction
+nnoremap <leader>gh :call VimgrepHightWord()<cr>
 
 """"""""""""""""""""""""""""""
 " => map, command
 """"""""""""""""""""""""""""""
-" Fast saving
-nmap <F9> :q<CR>
-nmap <F12> :w<CR>
-
-" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
-map <c-space> ?
-
-" Fast copying
 command! ABD 'a,'bd
 command! ABY 'a,'by
 command! ZF  'a,'bfold | 'a
 map <C-a>   :'a,'by<cr>
 map <C-e>   :'a,'bd<cr>
 
-nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
-nnoremap <leader>ce :cd %:p:h<CR>:e .<CR>
-
-""""""""""""""""""""""""""""""
-" switch between panes 
-""""""""""""""""""""""""""""""
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
-
-nnoremap <Tab> <c-w>w
-nnoremap <bs> <c-w>W
-
-""""""""""""""""""""""""""""""
-" => airline-themes.vim
-""""""""""""""""""""""""""""""
-" hybrid
-" kalisi
-" kolor
-" jellybeans
-" light
-" luna
-let g:airline_theme='papercolor'
-let g:airline#extensions#whitespace#enabled = 0
-" let g:airline#extensions#whitespace#checks = [ 'indent', 'trailing', 'long', 'mixed-indent-file' ]
-
-
-""""""""""""""""""""""""""""""
-" => rainbow.vim
-""""""""""""""""""""""""""""""
-let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
-
-
-""""""""""""""""""""""""""""""
-" => bufexplorer.vim
-""""""""""""""""""""""""""""""
-" nnoremap <script> <silent> <nowait> <buffer> <F8> :call <SID>Close()<CR>
-nnoremap <silent> <F8> :BufExplorerVerticalSplit<CR>
-nnoremap <silent> <F5> :bnext<CR>
-nnoremap <silent> <F6> :bNext<CR>
-nnoremap <silent> <C-F5> :bNext<CR>
-
-
-""""""""""""""""""""""""""""""
-" => netrw.vim
-""""""""""""""""""""""""""""""
-" nnoremap <buffer> <F7> :quit<cr>  -- netrw.vim
-nnoremap <silent> <F7> :Vexplore<CR>
-
-
-""""""""""""""""""""""""""""""
-" => grep.vim
-""""""""""""""""""""""""""""""
-"    :Grep   [<grep_options>] [<search_pattern> [<file_name(s)>]]
-"    :Bgrep  [<grep_options>] [<search_pattern>]
-"       :let Grep_Path = '/bin/grep'
-"       :let Grep_Find_Path = '/usr/bin/find'
-"       :let Grep_Xargs_Path = '/usr/bin/xargs'
-"       :let Grep_Default_Filelist = '*.[chS]'
-"       :let Grep_Default_Options = '-i'
-"       :let Grep_Skip_Dirs = 'dir1 dir2 dir3'
-"       :let Grep_Skip_Files = '*.bak *~'
-"       :let Grep_OpenQuickfixWindow = 0
-"       :let Grep_Shell_Quote_Char = "'"
-"       :let Grep_Shell_Escape_Char = "'"
-
-set grepprg=grep 
-nnoremap <silent> <F3> :Bgrep<CR>
-nnoremap <silent> <F4> :Rgrep<CR>
-nnoremap <silent> <F2> :cnext<CR>
-nnoremap <silent> <C-F2> :cNext<CR>
-nnoremap <leader>cn :cnext<CR>
-nnoremap <leader>cp :cprevious<CR>
-
-
-""""""""""""""""""""""""""""""
-" => ctrlp.vim
-""""""""""""""""""""""""""""""
-let g:ctrlp_cmd = 'CtrlPMRUFiles'
-
-
-""""""""""""""""""""""""""""""
-" => winmanager.vim
-""""""""""""""""""""""""""""""
-map <leader>wt :WMToggle<cr>
-map <leader>wf :FirstExplorerWindow<cr>
-map <leader>wb :BottomExplorerWindow<cr>
-
-
-""""""""""""""""""""""""""""""
-" => MiniBufExpl Colors
-""""""""""""""""""""""""""""""
-hi MBENormal               guifg=#808080 guibg=fg
-hi MBEChanged              guifg=#CD5907 guibg=fg
-hi MBEVisibleNormal        guifg=#5DC2D6 guibg=fg
-hi MBEVisibleChanged       guifg=#F1266F guibg=fg
-hi MBEVisibleActiveNormal  guifg=#A6DB29 guibg=fg
-hi MBEVisibleActiveChanged guifg=#F1266F guibg=fg
-
-
-""""""""""""""""""""""""""""""
-" => cscope
-""""""""""""""""""""""""""""""
-if has("cscope") && filereadable("/usr/bin/cscope")
-   set csprg=/usr/bin/cscope
-   set csto=0
-   set cst
-   set nocsverb
-   " add any database in current directory
-   if filereadable("cscope.out")
-      cs add cscope.out
-   endif
-   set csverb
-endif
-
-nnoremap <leader>ca :cscope add /home/user/cscopedb/cscope.out.project<CR>
-
-nnoremap <leader>fd :cs find g <C-R>=expand("<cword>")<CR><CR>
-nnoremap <leader>fc :cs find c <C-R>=expand("<cword>")<CR><CR>
-nnoremap <leader>fs :cs find s <C-R>=expand("<cword>")<CR><CR>
-nnoremap <leader>fe :cs find e <C-R>=expand("<cword>")<CR><CR>
-nnoremap <leader>ft :cs find t <C-R>=expand("<cword>")<CR><CR>
-nnoremap <leader>fi :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-nnoremap <leader>ff :cs find f <C-R>=expand("<cfile>")<CR><CR>
-
+" silent! map <F2> :b1<CR>
+" nnoremap * :keepjumps normal *``<cr>
+" silent! map <F5> :%!sort -u<CR>
+" silent! map <F10> :set noignorecase<CR>
+" silent! map <F11> :set nonumber<CR>
+" silent! map <F12> dd 
+" highlight nonascii guibg=Conceal ctermbg=1 term=standout
+" au BufReadPost * syntax match nonascii "[^\u0000-\u007F]"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-""""""""""""""""""""""""""""""
-" => search current line
-""""""""""""""""""""""""""""""
 function! Linesearch()
     let line = getline(".")
     let repl = substitute(line, "\\", "\\\\\\\\", "g")
@@ -356,11 +244,7 @@ function! Linesearch()
     let @/ = repl
 endfunction
 nnoremap <leader>l :call Linesearch()<cr>
-nnoremap <leader>/ :echo @/<cr>
 
-""""""""""""""""""""""""""""""
-" => search current line, without header, for patch file
-""""""""""""""""""""""""""""""
 function! Linesearchnoheader()
     let line = getline(".")
     let repl = substitute(line, "^.\\s*", "", "")
@@ -373,10 +257,9 @@ function! Linesearchnoheader()
     let @/ = repl
 endfunction
 nnoremap <leader>h :call Linesearchnoheader()<cr>
+nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
+nnoremap <leader>ce :cd %:p:h<CR>:e .<CR>
 
-""""""""""""""""""""""""""""""
-" => 
-""""""""""""""""""""""""""""""
 function! Appendwordtoregister()
     let var_s = getreg('/', 1)
     let var_smode = getregtype('/')
@@ -394,11 +277,7 @@ function! Appendwordtoregister()
 
     call setreg('/', var_s, var_smode)
 endfunction
-nnoremap <leader>a :call Appendwordtoregister()<cr>
 
-""""""""""""""""""""""""""""""
-" => do not highlight current word
-""""""""""""""""""""""""""""""
 function! Nohighlightnow()
     let var_s = 'abcdefghijklmnopqrstuvwxyz'
     let var_smode = getregtype('/')
@@ -406,10 +285,6 @@ function! Nohighlightnow()
 endfunction
 nnoremap <leader>nl :call Nohighlightnow()<cr>
 
-
-""""""""""""""""""""""""""""""
-" => count diffs in vimdiff
-""""""""""""""""""""""""""""""
 function! CountDiffsVimdiff()
     let winview = winsaveview() 
     let num_diffs = 0
@@ -433,62 +308,60 @@ function! CountDiffsVimdiff()
 endfunction
 nnoremap <leader>dc :let diffcounts = CountDiffsVimdiff()<cr>:echo "total number of changes is [" . diffcounts . "]"<cr>
 
-""""""""""""""""""""""""""""""
-" => count matchs
-""""""""""""""""""""""""""""""
+function! VsbFunction (arg1)
+  execute 'vertical sbuffer ' a:arg1
+endfunction
+command! -nargs=1 Vsb call VsbFunction(<f-args>)
+
+function! ExecMultiSubstitutions()
+  execute 's=\${=!=g'
+  execute 's=}=!=g'
+  execute 's="==g'
+endfunction
+
 function! CountNumberOfMatches()
     let line = @/
     execute '%s/' . line . '//gn'
 endfunction
 nnoremap <leader>mc :call CountNumberOfMatches()<cr>
 
-
-""""""""""""""""""""""""""""""
-" => 
-""""""""""""""""""""""""""""""
-function! DebugEchoWordValue()
-    let line = getline(".")
-    let line = 'echo "' . line . ' = [${' . line . '}]"'
-    call setline(".", line)
+function! CamelToUnderlineHighlight()
+    let origname = @/
+    let newname = substitute(origname, "\\", "", "g")
+    let newname = substitute(newname, "<", "", "")
+    let newname = substitute(newname, ">", "", "")
+    " let newname = substitute(newname, "\\([a-z]\\)\\([A-Z]\\)", "\\1_\\l\\2", "g")
+    let newname = substitute(newname, "\\([A-Z]\\)", "_\\l\\1", "g")
+    " let newname = substitute(newname, "\\([a-z]\\)", "_\\u\\1", "g")
+    execute '%s/\<' . origname . '\>/' . newname . '/g'
+    " echo "origname = " . origname
+    " echo "newname = " . newname
 endfunction
-nnoremap <leader>ev :call DebugEchoWordValue()<cr>
 
-
-""""""""""""""""""""""""""""""
-" => 
-""""""""""""""""""""""""""""""
-function! VsbFunction (arg1)
-  execute 'vertical sbuffer ' a:arg1
+function! CamelToUnderline()
+    let origname = expand('<cword>')
+    let newname = substitute(origname, "\\([A-Z]\\)", "_\\l\\1", "g")
+    " let newname = substitute(newname, "\\([a-z]\\)\\([A-Z]\\)", "\\1_\\l\\2", "g")
+    " let newname = substitute(newname, "\\([a-z]\\)", "_\\u\\1", "g")
+    execute '%s/\<' . origname . '\>/' . newname . '/g'
 endfunction
-command! -nargs=1 Vsb call VsbFunction(<f-args>)
-
-""""""""""""""""""""""""""""""
-" => 
-""""""""""""""""""""""""""""""
-function! ExecMultiSubstitutions()
-  execute 's=\${=!=g'
-  execute 's=}=!=g'
-  execute 's="==g'
-endfunction
-nnoremap <leader>bb :call ExecMultiSubstitutions()<cr>
-
+nnoremap <leader>cu :call CamelToUnderline()<cr>
 
 """"""""""""""""""""""""""""""
 " => color another word
 """"""""""""""""""""""""""""""
-" MatchParen     xxx term=reverse ctermbg=6 guibg=DarkCyan
-" Conceal        xxx ctermfg=7 ctermbg=242 guifg=LightGrey guibg=DarkGrey
-" SpellBad       xxx term=reverse ctermbg=9 gui=undercurl guisp=Red
-" SpellCap       xxx term=reverse ctermbg=12 gui=undercurl guisp=Blue
-" SpellRare      xxx term=reverse ctermbg=13 gui=undercurl guisp=Magenta
-" SpellLocal     xxx term=underline ctermbg=14 gui=undercurl guisp=Cyan
-
 function! ColorAnotherWord(type, colorgroup)
     let curword = expand('<cword>')
     let curword = "/" . curword . "/"
     execute a:type . ' ' . a:colorgroup  . ' ' . curword
 endfunction
 
+" MatchParen     xxx term=reverse ctermbg=6 guibg=DarkCyan
+" Conceal        xxx ctermfg=7 ctermbg=242 guifg=LightGrey guibg=DarkGrey
+" SpellBad       xxx term=reverse ctermbg=9 gui=undercurl guisp=Red
+" SpellCap       xxx term=reverse ctermbg=12 gui=undercurl guisp=Blue
+" SpellRare      xxx term=reverse ctermbg=13 gui=undercurl guisp=Magenta
+" SpellLocal     xxx term=underline ctermbg=14 gui=undercurl guisp=Cyan
 nnoremap <leader>m1 :call ColorAnotherWord('match', 'SpellCap')<cr>
 nnoremap <leader>m2 :call ColorAnotherWord('2match', 'SpellRare')<cr>
 nnoremap <leader>m3 :call ColorAnotherWord('3match', 'MatchParen')<cr>
@@ -497,71 +370,115 @@ nnoremap <leader>m5 :call ColorAnotherWord('2match', 'SpellLocal')<cr>
 nnoremap <leader>m6 :call ColorAnotherWord('3match', 'SpellBad')<cr>
 nnoremap <leader>mn :match none<cr>:2match none<cr>:3match none<cr>
 
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Misc
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" function! FoldPreprocessor()
-"     set foldmarker=#ifdef,#endif
-"     set foldmethod=marker
-" endfunction
-" autocmd FileType *.[ch]{,pp} call FoldPreprocessor()
-" 
-" " You might also want to consider using:
-" set foldmarker=#if,#endif
-
-" navigate preprocessor conditional blocks with the % key
-" Also, [# and ]# navigate up/down.
-" go to the start of a conditional block (perhaps with /^#Enter) 
-" then
-"  zf%      -- fold to next conditional directive
-"  v2]#zf   -- fold to second next directive (e.g. #else... #endif)
-
-" :[N]Explore[!]  [dir]... Explore directory of current file      :Explore
-" :[N]Hexplore[!] [dir]... Horizontal Split & Explore             :Hexplore
-" :Rexplore            ... Return to Explorer                     :Rexplore
-" :[N]Sexplore[!] [dir]... Split&Explore current file's directory :Sexplore
-" :Texplore       [dir]... Tab              & Explore             :Texplore
-" :[N]Vexplore[!] [dir]... Vertical   Split & Explore             :Vexplore
-
-" Substitute with ascending numbers
-" %s/pattern/\="pattern" . (line('.') + 8800)/
-" %s/pattern88/pattern/
-
-" colorscheme golden
-" colorscheme vividchalk
-" colorscheme vibrantink
-
-function! CamelToUnderline()
-    let origname = @/
-    let newname = substitute(origname, "\\", "", "g")
-    let newname = substitute(newname, "<", "", "")
-    let newname = substitute(newname, ">", "", "")
-    " let newname = substitute(newname, "\\([a-z]\\)\\([A-Z]\\)", "\\1_\\l\\2", "g")
-    let newname = substitute(newname, "\\([A-Z]\\)", "_\\l\\1", "g")
-    execute '%s/\<' . origname . '\>/' . newname . '/g'
-    " echo "origname = " . origname
-    " echo "newname = " . newname
-endfunction
-nnoremap <leader>cu :call CamelToUnderline()<cr>
-
-silent! map <F2> :b1<CR>
-
-nnoremap <Leader><Bar> :new<CR>:set buftype=nofile bufhidden=wipe noswapfile<CR>
-
 """"""""""""""""""""""""""""""
 " => global increasing number 
 """"""""""""""""""""""""""""""
-let g:globalincreasingcounter = 0
+let g:globalincreasingcounter = 0 
 function! GlobalIncreasingNumber()
     let g:globalincreasingcounter += 1
     return g:globalincreasingcounter
 endfunction
 
-" %s/\d00/\="[" . GlobalIncreasingNumber(). "]"/
-" let @/='\d00' | keepjumps silent execute 'normal! gg' | for i in range(1, 9) | keepjumps silent execute 'normal! n' | execute 's/\d00/[' . i . ']/'  | endfor
-" :%s/    \([\u4e00-\u9fff," ]\{2,18}\)$/\="第" . GlobalIncreasingNumber() .  "部分  " . submatch(1)/
+""""""""""""""""""""""""""""""
+" => grep
+""""""""""""""""""""""""""""""
+let Grep_Default_Options = '-r'
+let Grep_Skip_Dirs = '.git'
+
+""""""""""""""""""""""""""""""
+" MiniBufExpl Colors
+""""""""""""""""""""""""""""""
+hi MBENormal               guifg=#808080 guibg=fg
+hi MBEChanged              guifg=#CD5907 guibg=fg
+hi MBEVisibleNormal        guifg=#5DC2D6 guibg=fg
+hi MBEVisibleChanged       guifg=#F1266F guibg=fg
+hi MBEVisibleActiveNormal  guifg=#A6DB29 guibg=fg
+hi MBEVisibleActiveChanged guifg=#F1266F guibg=fg
+
+""""""""""""""""""""""""""""""
+" => airline-themes.vim
+""""""""""""""""""""""""""""""
+" let g:airline_theme='papercolor'
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#whitespace#checks = [ ]
+" let g:airline#extensions#whitespace#checks = [ 'indent', 'trailing', 'long', 'mixed-indent-file' ]
+
+""""""""""""""""""""""""""""""
+" => CtrlP.vim
+""""""""""""""""""""""""""""""
+let g:ctrlp_cmd = 'CtrlPMRU'
+
+""""""""""""""""""""""""""""""
+" => tender.vim
+""""""""""""""""""""""""""""""
+" If you have vim >=8.0 or Neovim >= 0.1.5
+if (has("termguicolors"))
+  set termguicolors
+endif
+
+" set lighline theme inside lightline config
+" let g:lightline = { 'colorscheme': 'tender' }
+" set airline theme
+" let g:airline_theme = 'tender'
+
+""""""""""""""""""""""""""""""
+" => onedark.vim
+""""""""""""""""""""""""""""""
+let g:lightline = { 'colorscheme': 'onedark' }
+let g:airline_theme='onedark'
+
+""""""""""""""""""""""""""""""
+" => rainbow.vim
+""""""""""""""""""""""""""""""
+let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
+
+nnoremap <Leader><Bar> :new<CR>:set buftype=nofile bufhidden=wipe noswapfile<CR>
+let g:SignatureEnabledAtStartup = 1
+
+""""""""""""""""""""""""""""""
+" => windows GUI settings
+""""""""""""""""""""""""""""""
+set guifont=Consolas:h11
+
+" 设置快捷键将选中文本块复制至系统剪贴板
+vnoremap <Leader>y "+y
+" 设置快捷键将系统剪贴板内容粘贴至 vim
+nmap <Leader>p "+p
+
+" In gvim, set mouse=a, apply command y to copy.
+" set mouse=v
+set mouse=a
+
+set guioptions=
+" autocmd GUIEnter * simalt ~x
+
+" Don't wake up system with blinking cursor:
+let &guicursor = &guicursor . ",a:blinkon0"
+
+if has("gui_running")
+    set lines=99
+    set columns=90
+endif
+
+""""""""""""""""""""""""""""""
+" => changed frequently
+""""""""""""""""""""""""""""""
+" colorscheme zenburn
+" colorscheme golden
+" colorscheme vividchalk
+" colorscheme solarized
+" colorscheme tender
+colorscheme one-dark
 
 
+" Ignore case when searching
+" set ignorecase
+set noignorecase
+
+" set paste
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim的菜单乱码解决, 一定要加到最后.
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
