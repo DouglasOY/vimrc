@@ -1,9 +1,15 @@
 # ==========================================================================
-# annabel.lee
-export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;4;32'
+export GREP_COLOR='1;41'
 alias cgrep='grep --color=always '
 
+# user
+PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+alias grep='grep --color=auto'
+
+# root
+PS1='\[\033[01;35m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+alias grep='grep --color=auto'
 
 # root Yellow and Red and Magenta
 # export PS1="\[\e[1;33m\]\u:\[\e[1;31m\]\w\n# \[\e[0m\]"
