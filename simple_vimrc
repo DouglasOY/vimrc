@@ -1,0 +1,312 @@
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nocompatible              " be iMproved, required
+filetype plugin indent on    " required
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => General
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Set to auto read when a file is changed from the outside
+set autoread
+
+set bs=indent,eol,start		" allow backspacing over everything in insert mode
+set history=200		" keep 200 lines of command line history
+
+" With a map leader it's possible to do extra key combinations
+" like <leader>w saves the current file
+let mapleader = ","
+let g:mapleader = ","
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => VIM user interface
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set scrolloff=7
+
+" Turn on the WiLd menu
+set wildmenu
+
+" Ignore compiled files
+set wildignore=*.o,*~,*.pyc
+
+"Always show current position
+set ruler
+
+" Height of the command bar
+" set cmdheight=2
+
+" A buffer becomes hidden when it is abandoned
+set hidden
+
+" Configure backspace so it acts as it should act
+set backspace=eol,start,indent
+set whichwrap+=<,>,h,l
+
+" Highlight search results
+set hlsearch
+
+" Makes search act like search in modern browsers
+set noincsearch
+
+" Don't redraw while executing macros (good performance config)
+set lazyredraw
+
+" For regular expressions turn magic on
+set magic
+
+" Show matching brackets when text indicator is over them
+set showmatch
+" How many tenths of a second to blink when matching brackets
+set mat=2
+
+" No annoying sound on errors
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+" Remember info about open buffers on close
+set viminfo='20,\"50	" read/write a .viminfo file, don't store more " than 50 lines of registers
+" set viminfo^=%
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Colors and Fonts
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Enable syntax highlighting
+syntax enable
+
+set background=dark
+
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Files, backups and undo
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Turn backup off, since most stuff is in SVN, git et.c anyway...
+set nobackup
+set nowb
+set noswapfile
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ==> automatically indent lines (default)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set autoindent 		" always set autoindenting on
+set cindent
+set smartindent
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Text, tab and indent related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use spaces instead of tabs
+set expandtab
+
+" Be smart when using tabs ;)
+set smarttab
+
+" 1 tab == 4 spaces
+set shiftwidth=4
+set tabstop=4
+set softtabstop=4
+
+" set smartcase
+set number
+
+set nolist
+
+" number of undos
+set undolevels=100
+
+" do i have a fast terminal?
+set nottyfast
+" continue searching at top when hitting bottom
+set wrapscan
+"always show the command
+set showcmd
+" show all changes
+set report=0
+" Highlight matching parens
+set matchpairs=(:),[:],{:},<:>
+set updatecount=75
+
+" comment types
+set comments=b:#,:%,fb:-,n:),n:> fo=cqrt
+
+set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+set clipboard=unnamed
+
+""""""""""""""""""""""""""""""
+" => Status line
+""""""""""""""""""""""""""""""
+" Always show the status line
+set laststatus=2
+
+set splitbelow 
+set splitright 
+
+""""""""""""""""""""""""""""""
+" => vimgrep
+""""""""""""""""""""""""""""""
+function! VimgrepHightWord()
+    let curword = expand('<cword>')
+    execute 'vimgrep /' . curword . '/j  **'
+endfunction
+nnoremap <leader>gh :call VimgrepHightWord()<cr>
+
+""""""""""""""""""""""""""""""
+" => map, command
+""""""""""""""""""""""""""""""
+command! ABD 'a,'bd
+command! ABY 'a,'by
+command! ZF  'a,'bfold | 'a
+map <C-a>   :'a,'by<cr>
+map <C-e>   :'a,'bd<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Helper functions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! Linesearch()
+    let line = getline(".")
+    let repl = substitute(line, "\\", "\\\\\\\\", "g")
+    let repl = substitute(repl, "[", "\\\\[", "g")
+    let repl = substitute(repl, "]", "\\\\]", "g")
+    let repl = substitute(repl, "\\.", "\\\\.", "g")
+    let repl = substitute(repl, "/", "\\\\/", "g")
+    let repl = substitute(repl, "*", "\\\\*", "g")
+    let @/ = repl
+endfunction
+nnoremap <leader>l :call Linesearch()<cr>
+
+function! Linesearchnoheader()
+    let line = getline(".")
+    let repl = substitute(line, "^.\\s*", "", "")
+    let repl = substitute(repl, "\\", "\\\\\\\\", "g")
+    let repl = substitute(repl, "[", "\\\\[", "g")
+    let repl = substitute(repl, "]", "\\\\]", "g")
+    let repl = substitute(repl, "\\.", "\\\\.", "g")
+    let repl = substitute(repl, "/", "\\\\/", "g")
+    let repl = substitute(repl, "*", "\\\\*", "g")
+    let @/ = repl
+endfunction
+nnoremap <leader>h :call Linesearchnoheader()<cr>
+nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
+nnoremap <leader>ce :cd %:p:h<CR>:e .<CR>
+
+function! Appendwordtoregister()
+    let var_s = getreg('/', 1)
+    let var_smode = getregtype('/')
+    let curword = expand('<cword>')
+
+    if var_s != ""
+        if curword != ""
+            let var_s = substitute(var_s, "^\\\\(", "", "")
+            let var_s = substitute(var_s, "\\\\)$", "", "")
+            let var_s = '\(' . var_s . '\|' . curword . '\)'
+        endif
+    else
+        let var_s = curword
+    endif
+
+    call setreg('/', var_s, var_smode)
+endfunction
+
+function! Nohighlightnow()
+    let var_s = 'abcdefghijklmnopqrstuvwxyz'
+    let var_smode = getregtype('/')
+    call setreg('/', var_s, var_smode)
+endfunction
+nnoremap <leader>nl :call Nohighlightnow()<cr>
+
+function! CountDiffsVimdiff()
+    let winview = winsaveview() 
+    let num_diffs = 0
+    if &diff
+        let pos = getpos(".")
+        keepj sil exe 'normal! G'
+        let lnum = 1
+        let moved = 1
+        while moved
+            let startl = line(".")
+            keepj sil exe 'normal! [c'
+            let moved = line(".") - startl
+            if moved
+                let num_diffs+=1
+            endif
+        endwhile
+        call winrestview(winview)
+        call setpos(".",pos)
+    endif
+    return num_diffs
+endfunction
+nnoremap <leader>dc :let diffcounts = CountDiffsVimdiff()<cr>:echo "total number of changes is [" . diffcounts . "]"<cr>
+
+function! VsbFunction (arg1)
+  execute 'vertical sbuffer ' a:arg1
+endfunction
+command! -nargs=1 Vsb call VsbFunction(<f-args>)
+
+function! ExecMultiSubstitutions()
+  execute 's=\${=!=g'
+  execute 's=}=!=g'
+  execute 's="==g'
+endfunction
+
+function! CountNumberOfMatches()
+    let line = @/
+    execute '%s/' . line . '//gn'
+endfunction
+nnoremap <leader>mc :call CountNumberOfMatches()<cr>
+
+""""""""""""""""""""""""""""""
+" => color another word
+""""""""""""""""""""""""""""""
+function! ColorAnotherWord(type, colorgroup)
+    let curword = expand('<cword>')
+    let curword = "/" . curword . "/"
+    execute a:type . ' ' . a:colorgroup  . ' ' . curword
+endfunction
+
+" MatchParen     xxx term=reverse ctermbg=6 guibg=DarkCyan
+" Conceal        xxx ctermfg=7 ctermbg=242 guifg=LightGrey guibg=DarkGrey
+" SpellBad       xxx term=reverse ctermbg=9 gui=undercurl guisp=Red
+" SpellCap       xxx term=reverse ctermbg=12 gui=undercurl guisp=Blue
+" SpellRare      xxx term=reverse ctermbg=13 gui=undercurl guisp=Magenta
+" SpellLocal     xxx term=underline ctermbg=14 gui=undercurl guisp=Cyan
+nnoremap <leader>m1 :call ColorAnotherWord('match', 'SpellCap')<cr>
+nnoremap <leader>m2 :call ColorAnotherWord('2match', 'SpellRare')<cr>
+nnoremap <leader>m3 :call ColorAnotherWord('3match', 'MatchParen')<cr>
+nnoremap <leader>m4 :call ColorAnotherWord('match', 'Conceal')<cr>
+nnoremap <leader>m5 :call ColorAnotherWord('2match', 'SpellLocal')<cr>
+nnoremap <leader>m6 :call ColorAnotherWord('3match', 'SpellBad')<cr>
+nnoremap <leader>mn :match none<cr>:2match none<cr>:3match none<cr>
+
+""""""""""""""""""""""""""""""
+" => global increasing number 
+""""""""""""""""""""""""""""""
+let g:globalincreasingcounter = 0 
+function! GlobalIncreasingNumber()
+    let g:globalincreasingcounter += 1
+    return g:globalincreasingcounter
+endfunction
+
+""""""""""""""""""""""""""""""
+" => grep
+""""""""""""""""""""""""""""""
+let Grep_Default_Options = '-r'
+let Grep_Skip_Dirs = '.git'
+
+set mouse=c
+
+""""""""""""""""""""""""""""""
+" => changed frequently
+""""""""""""""""""""""""""""""
+colorscheme elflord
+
+" Ignore case when searching
+" set ignorecase
+set noignorecase
+
+" set paste
+
