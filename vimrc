@@ -5,7 +5,7 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
-set rtp+=$VIM/bundle/Vundle.vim/
+set rtp+=$VIM/vundle/Vundle.vim/
 call vundle#begin('$VIM/vundle/')
 
 " let Vundle manage Vundle, required
@@ -21,7 +21,6 @@ Plugin 'joshdick/onedark.vim'
 Plugin 'rakr/vim-one'
 Plugin 'jacoborus/tender.vim'
 
-Plugin 'fatih/vim-go'
 Plugin 'tomasr/molokai'
 
 " nerdtree, ctrlp, vimgrep, tools for vim IDE
@@ -30,13 +29,8 @@ Plugin 'https://github.com/kien/ctrlp.vim.git'
 
 Plugin 'luochen1990/rainbow'
 
-Plugin 'Valloric/YouCompleteMe'
-
-Plugin 'mileszs/ack.vim'
-
-Plugin 'vim-scripts/DrawIt'
+" Plugin 'Valloric/YouCompleteMe'
 Plugin 'dhruvasagar/vim-table-mode'
-Plugin 'godlygeek/tabular'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -447,7 +441,7 @@ nmap <Leader>p "+p
 
 " In gvim, set mouse=a, apply command y to copy.
 " set mouse=v
-set mouse=a
+set mouse=c
 
 set guioptions=
 " autocmd GUIEnter * simalt ~x
