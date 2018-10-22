@@ -464,6 +464,9 @@ endif
 " colorscheme tender
 colorscheme one-dark
 
+hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+set cursorline
 
 " Ignore case when searching
 " set ignorecase
