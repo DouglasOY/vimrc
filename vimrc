@@ -474,6 +474,15 @@ set noignorecase
 
 " set paste
 
+" Substitute with ascending numbers
+" %s/pattern/\="pattern" . (line('.') + 8800)/
+" %s/pattern88/pattern/
+" %s/\d00/\="[" . GlobalIncreasingNumber(). "]"/
+" let @/='\d00' | keepjumps silent execute 'normal! gg' | for i in range(1, 9) | keepjumps silent execute 'normal! n' | execute 's/\d00/[' . i . ']/'  | endfor
+" :%s/    \([\u4e00-\u9fff," ]\{2,18}\)$/\="第" . GlobalIncreasingNumber() .  "部分  " . submatch(1)/
+
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim的菜单乱码解决, 一定要加到最后.
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
