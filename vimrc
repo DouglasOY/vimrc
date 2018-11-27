@@ -204,7 +204,7 @@ function! VimgrepHightWord()
     let curword = expand('<cword>')
     execute 'vimgrep /' . curword . '/j  **'
 endfunction
-nnoremap <leader>gh :call VimgrepHightWord()<cr>
+nnoremap <leader>vg :call VimgrepHightWord()<cr>
 
 """"""""""""""""""""""""""""""
 " => map, command
