@@ -214,6 +214,7 @@ command! ABY 'a,'by
 command! ZF  'a,'bfold | 'a
 map <C-a>   :'a,'by<cr>
 map <C-e>   :'a,'bd<cr>
+map <C-u>   :%!sort -u<cr>
 
 " silent! map <F2> :b1<CR>
 " nnoremap * :keepjumps normal *``<cr>
