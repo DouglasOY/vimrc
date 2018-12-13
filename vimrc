@@ -240,6 +240,18 @@ function! Linesearch()
 endfunction
 nnoremap <leader>l :call Linesearch()<cr>
 
+function! MultiWordsSearch()
+    let line = getline(".")
+    let repl = substitute(line, "\\", "\\\\\\\\", "g")
+    let repl = substitute(repl, "[", "\\\\[", "g")
+    let repl = substitute(repl, "]", "\\\\]", "g")
+    let repl = substitute(repl, "\\.", "\\\\.", "g")
+    let repl = substitute(repl, "/", "\\\\/", "g")
+    let repl = substitute(repl, "*", "\\\\*", "g")
+    call append(line('.'), repl)
+endfunction
+nnoremap <leader>ms :call MultiWordsSearch()<cr>
+
 function! Linesearchnoheader()
     let line = getline(".")
     let repl = substitute(line, "^.\\s*", "", "")
