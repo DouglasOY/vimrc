@@ -206,6 +206,7 @@ endfunction
 nnoremap <leader>h :call Linesearchnoheader()<cr>
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 nnoremap <leader>ce :cd %:p:h<CR>:e .<CR>
+nnoremap <leader>p  :!echo %:p<CR>
 
 function! Appendwordtoregister()
     let var_s = getreg('/', 1)
