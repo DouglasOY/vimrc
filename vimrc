@@ -207,6 +207,11 @@ endfunction
 nnoremap <leader>vg :call VimgrepHightWord()<cr>
 
 """"""""""""""""""""""""""""""
+" => CtrlP
+""""""""""""""""""""""""""""""
+let g:ctrlp_cmd = 'CtrlPMRU'
+
+""""""""""""""""""""""""""""""
 " => map, command
 """"""""""""""""""""""""""""""
 command! ABD 'a,'bd
