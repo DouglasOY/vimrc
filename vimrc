@@ -487,12 +487,6 @@ hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=whi
 hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
 set cursorline
 
-" Ignore case when searching
-" set ignorecase
-set noignorecase
-
-" set paste
-
 " Substitute with ascending numbers
 " %s/pattern/\="pattern" . (line('.') + 8800)/
 " %s/pattern88/pattern/
@@ -500,7 +494,16 @@ set noignorecase
 " let @/='\d00' | keepjumps silent execute 'normal! gg' | for i in range(1, 9) | keepjumps silent execute 'normal! n' | execute 's/\d00/[' . i . ']/'  | endfor
 " :%s/    \([\u4e00-\u9fff," ]\{2,18}\)$/\="第" . GlobalIncreasingNumber() .  "部分  " . submatch(1)/
 
+""""""""""""""""""""""""""""""
+" => most common
+""""""""""""""""""""""""""""""
+" Ignore case when searching
+set noignorecase
 
+map <F2>   :set paste<cr>
+map <F3>   :set ignorecase<cr>
+map <F4>   :set noignorecase<cr>
+map <F5>   :%!sort -u<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim的菜单乱码解决, 一定要加到最后.
