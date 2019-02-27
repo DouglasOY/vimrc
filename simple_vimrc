@@ -327,13 +327,15 @@ let g:netrw_sort_options = 'i'
 let g:netrw_sort_sequence = '[\/]$,*'
 
 """"""""""""""""""""""""""""""
-" => changed frequently
+" => most common
 """"""""""""""""""""""""""""""
 colorscheme elflord
 
 " Ignore case when searching
-" set ignorecase
 set noignorecase
 
-" set paste
+map <F2>   :set paste<cr>
+map <F3>   :set ignorecase<cr>
+map <F4>   :set noignorecase<cr>
+map <F5>   :%!sort -u<cr>
 
