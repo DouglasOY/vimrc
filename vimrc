@@ -449,6 +449,11 @@ nnoremap <Leader><Bar> :new<CR>:set buftype=nofile bufhidden=wipe noswapfile<CR>
 let g:SignatureEnabledAtStartup = 1
 
 """"""""""""""""""""""""""""""
+" => fold
+""""""""""""""""""""""""""""""
+nnoremap zs :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\\|\\|(getline(v:lnum+1)=~@/)?1:2 foldmethod=expr foldlevel=0 foldcolumn=2<CR>:set foldmethod=manual<CR><CR>
+
+""""""""""""""""""""""""""""""
 " => windows GUI settings
 """"""""""""""""""""""""""""""
 set guifont=Consolas:h11
