@@ -6,7 +6,7 @@ alias cgrep='grep --color=always '
 # user
 PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 alias grep='grep --color=auto'
-
+alias prettycat='prettycatfunc() { while [ $# -ne 0 ] ; do echo "==== $1"; cat "$1";  echo  -e "\n"; shift ; done; } ; prettycatfunc'
 # root
 PS1='\[\033[01;35m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 alias grep='grep --color=auto'
