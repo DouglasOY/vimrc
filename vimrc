@@ -511,10 +511,12 @@ set cursorline
 " Ignore case when searching
 set noignorecase
 
-map <F2>   :set paste<cr>
-map <F3>   :set ignorecase<cr>
-map <F4>   :set noignorecase<cr>
-map <F5>   :%!sort -u<cr>
+
+nmap <Leader>sp  :set paste<cr>
+nmap <Leader>si  :set ignorecase<cr>
+nmap <Leader>sn  :set noignorecase<cr>
+nmap <Leader>su  :%!sort -u<cr>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim的菜单乱码解决, 一定要加到最后.
