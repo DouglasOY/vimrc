@@ -517,6 +517,9 @@ nmap <Leader>si  :set ignorecase<cr>
 nmap <Leader>sn  :set noignorecase<cr>
 nmap <Leader>su  :%!sort -u<cr>
 
+" hi Search term=reverse ctermfg=0 ctermbg=11 guifg=Black guibg=Yellow
+
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim的菜单乱码解决, 一定要加到最后.
