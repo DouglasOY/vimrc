@@ -460,6 +460,14 @@ nnoremap zs :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\\
 nmap <Leader>ts :!echo --==<C-R><C-w>==-- ;ici <C-R><C-W><CR>
 
 """"""""""""""""""""""""""""""
+" => xclip clipboard
+""""""""""""""""""""""""""""""
+nmap <Leader>pm  :call system('xclip', @0)<CR>
+nmap <Leader>pr  :call system('xclip -selection clipboard', @0)<CR>
+nmap <Leader>gm  :read !xclip -o<CR>
+nmap <Leader>gr  :read !xclip -o -selection clipboard<CR>
+
+""""""""""""""""""""""""""""""
 " => windows GUI settings
 """"""""""""""""""""""""""""""
 set guifont=Consolas:h11
