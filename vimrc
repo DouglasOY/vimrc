@@ -517,7 +517,7 @@ nmap <Leader>si  :set ignorecase<cr>
 nmap <Leader>sn  :set noignorecase<cr>
 nmap <Leader>su  :%!sort -u<cr>
 
-" hi Search term=reverse ctermfg=0 ctermbg=11 guifg=Black guibg=Yellow
+" hi Search term=reverse ctermfg=0 ctermbg=10 guifg=Black guibg=Yellow
 
 
 
