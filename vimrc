@@ -217,9 +217,9 @@ let g:ctrlp_cmd = 'CtrlPMRU'
 command! ABD 'a,'bd
 command! ABY 'a,'by
 command! ZF  'a,'bfold | 'a
-map <C-a>   :'a,'by<cr>
-map <C-e>   :'a,'bd<cr>
-map <C-u>   :%!sort -u<cr>
+nnoremap <C-a>   :'a,'by<cr>
+nnoremap <C-e>   :'a,'bd<cr>
+nnoremap <C-u>   :%!sort -u<cr>
 
 " silent! map <F2> :b1<CR>
 " nnoremap * :keepjumps normal *``<cr>
@@ -457,15 +457,15 @@ nnoremap zs :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\\
 " => translation
 """"""""""""""""""""""""""""""
 " pip install ici
-nmap <Leader>ts :!echo --==<C-R><C-w>==-- ;ici <C-R><C-W><CR>
+nnoremap <Leader>ts :!echo --==<C-R><C-w>==-- ;ici <C-R><C-W><CR>
 
 """"""""""""""""""""""""""""""
 " => xclip clipboard
 """"""""""""""""""""""""""""""
-nmap <Leader>pm  :call system('xclip', @0)<CR>
-nmap <Leader>pr  :call system('xclip -selection clipboard', @0)<CR>
-nmap <Leader>gm  :read !xclip -o<CR>
-nmap <Leader>gr  :read !xclip -o -selection clipboard<CR>
+nnoremap <Leader>pm  :call system('xclip', @0)<CR>
+nnoremap <Leader>pr  :call system('xclip -selection clipboard', @0)<CR>
+nnoremap <Leader>gm  :read !xclip -o<CR>
+nnoremap <Leader>gr  :read !xclip -o -selection clipboard<CR>
 
 """"""""""""""""""""""""""""""
 " => windows GUI settings
@@ -475,7 +475,7 @@ set guifont=Consolas:h11
 " 设置快捷键将选中文本块复制至系统剪贴板
 vnoremap <Leader>y "+y
 " 设置快捷键将系统剪贴板内容粘贴至 vim
-nmap <Leader>p "+p
+nnoremap <Leader>p "+p
 
 " In gvim, set mouse=a, apply command y to copy.
 " set mouse=v
@@ -520,10 +520,10 @@ set cursorline
 set noignorecase
 
 
-nmap <Leader>sp  :set paste<cr>
-nmap <Leader>si  :set ignorecase<cr>
-nmap <Leader>sn  :set noignorecase<cr>
-nmap <Leader>su  :%!sort -u<cr>
+nnoremap <Leader>sp  :set paste<cr>
+nnoremap <Leader>si  :set ignorecase<cr>
+nnoremap <Leader>sn  :set noignorecase<cr>
+nnoremap <Leader>su  :%!sort -u<cr>
 
 " hi Search term=reverse ctermfg=0 ctermbg=10 guifg=Black guibg=Yellow
 
