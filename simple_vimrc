@@ -161,9 +161,9 @@ nnoremap <leader>vg :call VimgrepHightWord()<cr>
 command! ABD 'a,'bd
 command! ABY 'a,'by
 command! ZF  'a,'bfold | 'a
-map <C-a>   :'a,'by<cr>
-map <C-e>   :'a,'bd<cr>
-map <C-u>   :%!sort -u<cr>
+nnoremap <C-a>   :'a,'by<cr>
+nnoremap <C-e>   :'a,'bd<cr>
+nnoremap <C-u>   :%!sort -u<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
@@ -322,7 +322,7 @@ nnoremap zs :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\\
 " => translation
 """"""""""""""""""""""""""""""
 " pip install ici
-nmap <Leader>ts :!echo --==<C-R><C-w>==-- ;ici <C-R><C-W><CR>
+nnoremap <Leader>ts :!echo --==<C-R><C-w>==-- ;ici <C-R><C-W><CR>
 
 """"""""""""""""""""""""""""""
 " netrw -- Vexplore
@@ -346,9 +346,9 @@ colorscheme elflord
 set noignorecase
 
 
-nmap <Leader>sp  :set paste<cr>
-nmap <Leader>si  :set ignorecase<cr>
-nmap <Leader>sn  :set noignorecase<cr>
-nmap <Leader>su  :%!sort -u<cr>
+nnoremap <Leader>sp  :set paste<cr>
+nnoremap <Leader>si  :set ignorecase<cr>
+nnoremap <Leader>sn  :set noignorecase<cr>
+nnoremap <Leader>su  :%!sort -u<cr>
 
 
