@@ -1,0 +1,1310 @@
+ ------------------------------------------
+ 0)  gnome-t-3979  =>   wget-23486  
+ ------------------------------------------
+
+ 0)               |  sock_recvmsg() {
+ 0)               |    security_socket_recvmsg() {
+ 0)   0.283 us    |      cap_socket_recvmsg();
+ 0)   1.283 us    |    }
+ 0)               |    inet_recvmsg() {
+ 0)               |      udp_recvmsg() {
+ 0)               |        __skb_recv_datagram() {
+ 0)               |          __skb_try_recv_datagram() {
+ 0)   0.050 us    |            _raw_spin_lock_irqsave();
+ 0)               |            udp_skb_destructor() {
+ 0)               |              udp_rmem_release() {
+ 0)   0.065 us    |                __sk_mem_reduce_allocated();
+ 0)   0.594 us    |              }
+ 0)   1.145 us    |            }
+ 0)   0.054 us    |            _raw_spin_unlock_irqrestore();
+ 0)   2.600 us    |          }
+ 0)   3.149 us    |        }
+ 0)   1.886 us    |        skb_copy_datagram_iovec();
+ 0)               |        skb_consume_udp() {
+ 0)               |          consume_skb() {
+ 0)               |            skb_release_all() {
+ 0)   0.073 us    |              skb_release_head_state();
+ 0)               |              skb_release_data() {
+ 0)   0.676 us    |                page_frag_free();
+ 0)   1.867 us    |              }
+ 0)   3.133 us    |            }
+ 0)               |            kfree_skbmem() {
+ 0)               |              kmem_cache_free() {
+ 0)   0.538 us    |                __slab_free();
+ 0)   1.926 us    |              }
+ 0)   2.586 us    |            }
+ 0)   6.854 us    |          }
+ 0)   7.518 us    |        }
+ 0) + 15.137 us   |      }
+ 0) + 15.777 us   |    }
+ 0) + 18.413 us   |  }
+ 0)               |  sock_recvmsg() {
+ 0)               |    security_socket_recvmsg() {
+ 0)   0.152 us    |      cap_socket_recvmsg();
+ 0)   0.716 us    |    }
+ 0)               |    inet_recvmsg() {
+ 0)               |      udp_recvmsg() {
+ 0)               |        __skb_recv_datagram() {
+ 0)               |          __skb_try_recv_datagram() {
+ 0)   0.049 us    |            _raw_spin_lock_irqsave();
+ 0)               |            udp_skb_destructor() {
+ 0)   0.072 us    |              udp_rmem_release();
+ 0)   0.542 us    |            }
+ 0)   0.053 us    |            _raw_spin_unlock_irqrestore();
+ 0)   2.067 us    |          }
+ 0)   2.562 us    |        }
+ 0)   0.213 us    |        skb_copy_datagram_iovec();
+ 0)               |        skb_consume_udp() {
+ 0)               |          consume_skb() {
+ 0)               |            skb_release_all() {
+ 0)   0.076 us    |              skb_release_head_state();
+ 0)               |              skb_release_data() {
+ 0)   0.178 us    |                page_frag_free();
+ 0)   1.854 us    |              }
+ 0)   2.834 us    |            }
+ 0)               |            kfree_skbmem() {
+ 0)               |              kmem_cache_free() {
+ 0)   0.111 us    |                __slab_free();
+ 0)   0.582 us    |              }
+ 0)   1.040 us    |            }
+ 0)   4.845 us    |          }
+ 0)   5.489 us    |        }
+ 0)   9.744 us    |      }
+ 0) + 10.345 us   |    }
+ 0) + 12.210 us   |  }
+ ------------------------------------------
+ 1)     X-1956     =>  gnome-s-2869 
+ ------------------------------------------
+
+ 1)               |  sock_recvmsg() {
+ 1)               |    security_socket_recvmsg() {
+ 1)   0.103 us    |      cap_socket_recvmsg();
+ 1)   1.118 us    |    }
+ 1)               |    unix_stream_recvmsg() {
+ 1)               |      unix_stream_read_generic() {
+ 1)               |        mutex_lock_interruptible() {
+ 1)   0.071 us    |          _cond_resched();
+ 1)   0.882 us    |        }
+ 1)   0.157 us    |        _raw_spin_lock();
+ 1)   0.076 us    |        mutex_unlock();
+ 1)   0.057 us    |        put_pid();
+ 1)   4.229 us    |      }
+ 1)   5.076 us    |    }
+ 1)   8.060 us    |  }
+ 1)               |  sock_recvmsg() {
+ 1)               |    security_socket_recvmsg() {
+ 1)   0.071 us    |      cap_socket_recvmsg();
+ 1)   0.813 us    |    }
+ 1)               |    unix_stream_recvmsg() {
+ 1)               |      unix_stream_read_generic() {
+ 1)               |        mutex_lock_interruptible() {
+ 1)   0.071 us    |          _cond_resched();
+ 1)   1.010 us    |        }
+ 1)   0.080 us    |        _raw_spin_lock();
+ 1)               |        unix_stream_read_actor() {
+ 1)   0.338 us    |          skb_copy_datagram_iovec();
+ 1)   1.075 us    |        }
+ 1)   0.113 us    |        consume_skb();
+ 1)               |        skb_unlink() {
+ 1)   0.078 us    |          _raw_spin_lock_irqsave();
+ 1)   0.126 us    |          _raw_spin_unlock_irqrestore();
+ 1)   1.545 us    |        }
+ 1)               |        consume_skb() {
+ 1)               |          skb_release_all() {
+ 1)               |            skb_release_head_state() {
+ 1)               |              unix_destruct_scm() {
+ 1)   0.073 us    |                put_pid();
+ 1)               |                sock_wfree() {
+ 1)               |                  unix_write_space() {
+ 1)               |                    __wake_up_sync_key() {
+ 1)   0.080 us    |                      _raw_spin_lock_irqsave();
+ 1)               |                      __wake_up_common() {
+ 1)               |                        ep_poll_callback() {
+ 1)   0.180 us    |                          _raw_spin_lock_irqsave();
+ 1)   0.088 us    |                          _raw_spin_unlock_irqrestore();
+ 1)   1.875 us    |                        }
+ 1)   2.836 us    |                      }
+ 1)   0.086 us    |                      _raw_spin_unlock_irqrestore();
+ 1)   5.057 us    |                    }
+ 1)   6.066 us    |                  }
+ 1)   7.044 us    |                }
+ 1)   8.539 us    |              }
+ 1)   9.335 us    |            }
+ 1)               |            skb_release_data() {
+ 1)   0.139 us    |              kfree();
+ 1)   0.991 us    |            }
+ 1) + 11.798 us   |          }
+ 1)               |          kfree_skbmem() {
+ 1)   0.201 us    |            kmem_cache_free();
+ 1)   0.964 us    |          }
+ 1) + 14.304 us   |        }
+ 1)   0.064 us    |        _raw_spin_lock();
+ 1)   0.073 us    |        mutex_unlock();
+ 1)   0.074 us    |        put_pid();
+ 1) + 26.083 us   |      }
+ 1) + 26.826 us   |    }
+ 1) + 29.077 us   |  }
+ 1)               |  sock_recvmsg() {
+ 1)               |    security_socket_recvmsg() {
+ 1)   0.073 us    |      cap_socket_recvmsg();
+ 1)   0.813 us    |    }
+ 1)               |    unix_stream_recvmsg() {
+ 1)               |      unix_stream_read_generic() {
+ 1)               |        mutex_lock_interruptible() {
+ 1)   0.076 us    |          _cond_resched();
+ 1)   0.753 us    |        }
+ 1)   0.077 us    |        _raw_spin_lock();
+ 1)   0.078 us    |        mutex_unlock();
+ 1)   0.071 us    |        put_pid();
+ 1)   3.736 us    |      }
+ 1)   4.608 us    |    }
+ 1)   6.779 us    |  }
+ 0)               |  sock_recvmsg() {
+ 0)               |    security_socket_recvmsg() {
+ 0)   0.077 us    |      cap_socket_recvmsg();
+ 0)   0.611 us    |    }
+ 0)               |    netlink_recvmsg() {
+ 0)               |      skb_recv_datagram() {
+ 0)               |        __skb_recv_datagram() {
+ 0)               |          __skb_try_recv_datagram() {
+ 0)   0.051 us    |            _raw_spin_lock_irqsave();
+ 0)   0.058 us    |            _raw_spin_unlock_irqrestore();
+ 1)               |  sock_recvmsg() {
+ 0)   0.999 us    |          }
+ 1)               |    security_socket_recvmsg() {
+ 0)   1.631 us    |        }
+ 0)   2.112 us    |      }
+ 1)   0.094 us    |      cap_socket_recvmsg();
+ 0)   0.139 us    |      skb_copy_datagram_iovec();
+ 1)   0.911 us    |    }
+ 0)               |      skb_free_datagram() {
+ 0)               |        consume_skb() {
+ 1)               |    unix_stream_recvmsg() {
+ 0)               |          skb_release_all() {
+ 1)               |      unix_stream_read_generic() {
+ 0)               |            skb_release_head_state() {
+ 0)               |              netlink_skb_destructor() {
+ 1)               |        mutex_lock_interruptible() {
+ 0)   0.051 us    |                sock_rfree();
+ 1)   0.071 us    |          _cond_resched();
+ 0)   0.625 us    |              }
+ 0)   1.121 us    |            }
+ 0)               |            skb_release_data() {
+ 1)   0.899 us    |        }
+ 0)   0.123 us    |              kfree();
+ 1)   0.083 us    |        _raw_spin_lock();
+ 0)   0.602 us    |            }
+ 0)   2.535 us    |          }
+ 1)   0.078 us    |        mutex_unlock();
+ 0)               |          kfree_skbmem() {
+ 0)   0.144 us    |            kmem_cache_free();
+ 1)   0.057 us    |        put_pid();
+ 0)   0.588 us    |          }
+ 0)   3.935 us    |        }
+ 0)   4.375 us    |      }
+ 1)   3.874 us    |      }
+ 0)               |      netlink_dump() {
+ 0)               |        mutex_lock() {
+ 1)   4.559 us    |    }
+ 0)   0.043 us    |          _cond_resched();
+ 1)   6.911 us    |  }
+ 0)   0.504 us    |        }
+ 0)               |        __alloc_skb() {
+ 0)               |          kmem_cache_alloc_node() {
+ 0)   0.046 us    |            _cond_resched();
+ 0)   0.559 us    |          }
+ 0)               |          __kmalloc_reserve.isra.32() {
+ 0)               |            __kmalloc_node_track_caller() {
+ 0)   0.045 us    |              kmalloc_slab();
+ 0)   0.044 us    |              _cond_resched();
+ 0)   1.178 us    |            }
+ 0)   1.606 us    |          }
+ 0)   0.131 us    |          ksize();
+ 0)   3.650 us    |        }
+ 0)   0.050 us    |        netlink_skb_set_owner_r();
+ 0)               |        rtnl_dump_all() {
+ 0)   0.069 us    |          inet_dump_ifaddr();
+ 0)               |          inet6_dump_ifaddr() {
+ 0)               |            inet6_dump_addr() {
+ 0)   0.189 us    |              _raw_read_lock_bh();
+ 0)               |              inet6_fill_ifaddr() {
+ 0)               |                __nlmsg_put() {
+ 0)   0.046 us    |                  skb_put();
+ 0)   0.525 us    |                }
+ 0)   0.046 us    |                skb_put();
+ 1)               |  sock_recvmsg() {
+ 0)               |                put_cacheinfo() {
+ 0)   0.046 us    |                  skb_put();
+ 1)               |    security_socket_recvmsg() {
+ 1)   0.073 us    |      cap_socket_recvmsg();
+ 0)   0.674 us    |                }
+ 0)   0.046 us    |                skb_put();
+ 1)   0.802 us    |    }
+ 0)   3.476 us    |              }
+ 1)               |    unix_stream_recvmsg() {
+ 0)               |              _raw_read_unlock_bh() {
+ 0)   0.068 us    |                __local_bh_enable_ip();
+ 1)               |      unix_stream_read_generic() {
+ 1)               |        mutex_lock_interruptible() {
+ 0)   0.558 us    |              }
+ 0)   0.203 us    |              _raw_read_lock_bh();
+ 1)   0.073 us    |          _cond_resched();
+ 1)   0.791 us    |        }
+ 0)               |              _raw_read_unlock_bh() {
+ 1)   0.078 us    |        _raw_spin_lock();
+ 0)   0.046 us    |                __local_bh_enable_ip();
+ 0)   0.484 us    |              }
+ 1)   0.077 us    |        mutex_unlock();
+ 0)   0.210 us    |              _raw_read_lock_bh();
+ 1)   0.070 us    |        put_pid();
+ 0)               |              inet6_fill_ifaddr() {
+ 0)               |                __nlmsg_put() {
+ 0)   0.046 us    |                  skb_put();
+ 1)   3.828 us    |      }
+ 1)   4.503 us    |    }
+ 0)   0.537 us    |                }
+ 1)   6.702 us    |  }
+ 0)   0.046 us    |                skb_put();
+ 0)               |                put_cacheinfo() {
+ 0)   0.044 us    |                  skb_put();
+ 0)   0.523 us    |                }
+ 0)   0.042 us    |                skb_put();
+ 0)   3.129 us    |              }
+ 0)               |              _raw_read_unlock_bh() {
+ 0)   0.048 us    |                __local_bh_enable_ip();
+ 0)   0.483 us    |              }
+ 1)               |  sock_recvmsg() {
+ 0)   0.183 us    |              _raw_read_lock_bh();
+ 1)               |    security_socket_recvmsg() {
+ 0)               |              _raw_read_unlock_bh() {
+ 1)   0.070 us    |      cap_socket_recvmsg();
+ 0)   0.047 us    |                __local_bh_enable_ip();
+ 0)   0.532 us    |              }
+ 1)   0.823 us    |    }
+ 1)               |    unix_stream_recvmsg() {
+ 1)               |      unix_stream_read_generic() {
+ 0) + 15.986 us   |            }
+ 1)               |        mutex_lock_interruptible() {
+ 0) + 16.512 us   |          }
+ 0) + 17.859 us   |        }
+ 1)   0.071 us    |          _cond_resched();
+ 0)   0.048 us    |        mutex_unlock();
+ 0)               |        sk_filter_trim_cap() {
+ 1)   0.801 us    |        }
+ 0)               |          security_sock_rcv_skb() {
+ 0)   0.044 us    |            cap_socket_sock_rcv_skb();
+ 1)   0.076 us    |        _raw_spin_lock();
+ 0)   0.498 us    |          }
+ 0)   0.938 us    |        }
+ 1)   0.067 us    |        mutex_unlock();
+ 0)               |        __netlink_sendskb() {
+ 0)               |          skb_queue_tail() {
+ 0)   0.048 us    |            _raw_spin_lock_irqsave();
+ 1)   0.073 us    |        put_pid();
+ 0)   0.051 us    |            _raw_spin_unlock_irqrestore();
+ 0)   0.911 us    |          }
+ 1)   3.681 us    |      }
+ 0)   0.073 us    |          sock_def_readable();
+ 1)   4.412 us    |    }
+ 0)   1.852 us    |        }
+ 1)   6.699 us    |  }
+ 0) + 27.837 us   |      }
+ 0)   0.041 us    |      put_pid();
+ 0)               |      __wake_up() {
+ 0)   0.046 us    |        _raw_spin_lock_irqsave();
+ 0)   0.060 us    |        __wake_up_common();
+ 0)   0.052 us    |        _raw_spin_unlock_irqrestore();
+ 0)   1.385 us    |      }
+ 0) + 38.815 us   |    }
+ 0) + 40.403 us   |  }
+ 0)               |  sock_recvmsg() {
+ 0)               |    security_socket_recvmsg() {
+ 0)   0.046 us    |      cap_socket_recvmsg();
+ 0)   0.506 us    |    }
+ 0)               |    netlink_recvmsg() {
+ 0)               |      skb_recv_datagram() {
+ 0)               |        __skb_recv_datagram() {
+ 0)               |          __skb_try_recv_datagram() {
+ 0)   0.048 us    |            _raw_spin_lock_irqsave();
+ 0)   0.056 us    |            _raw_spin_unlock_irqrestore();
+ 0)   0.952 us    |          }
+ 0)   1.441 us    |        }
+ 0)   1.869 us    |      }
+ 0)   0.104 us    |      skb_copy_datagram_iovec();
+ 0)               |      skb_free_datagram() {
+ 0)               |        consume_skb() {
+ 0)               |          skb_release_all() {
+ 0)               |            skb_release_head_state() {
+ 0)               |              netlink_skb_destructor() {
+ 0)   0.046 us    |                sock_rfree();
+ 0)   0.499 us    |              }
+ 0)   0.972 us    |            }
+ 0)               |            skb_release_data() {
+ 0)   0.116 us    |              kfree();
+ 0)   0.554 us    |            }
+ 0)   2.329 us    |          }
+ 0)               |          kfree_skbmem() {
+ 0)   0.071 us    |            kmem_cache_free();
+ 0)   0.499 us    |          }
+ 0)   3.626 us    |        }
+ 0)   4.467 us    |      }
+ 0)               |      netlink_dump() {
+ 0)               |        mutex_lock() {
+ 0)   0.044 us    |          _cond_resched();
+ 0)   0.490 us    |        }
+ 0)               |        __alloc_skb() {
+ 0)               |          kmem_cache_alloc_node() {
+ 0)   0.044 us    |            _cond_resched();
+ 0)   0.544 us    |          }
+ 0)               |          __kmalloc_reserve.isra.32() {
+ 0)               |            __kmalloc_node_track_caller() {
+ 0)   0.045 us    |              kmalloc_slab();
+ 0)   0.046 us    |              _cond_resched();
+ 0)   0.951 us    |            }
+ 0)   1.377 us    |          }
+ 0)   0.053 us    |          ksize();
+ 0)   3.305 us    |        }
+ 0)   0.046 us    |        netlink_skb_set_owner_r();
+ 0)               |        rtnl_dump_all() {
+ 0)               |          inet6_dump_ifaddr() {
+ 0)   0.067 us    |            inet6_dump_addr();
+ 0)   0.521 us    |          }
+ 0)   1.636 us    |        }
+ 0)               |        __nlmsg_put() {
+ 0)   0.042 us    |          skb_put();
+ 0)   0.500 us    |        }
+ 0)               |        sk_filter_trim_cap() {
+ 0)               |          security_sock_rcv_skb() {
+ 0)   0.042 us    |            cap_socket_sock_rcv_skb();
+ 0)   0.497 us    |          }
+ 0)   0.928 us    |        }
+ 0)               |        __netlink_sendskb() {
+ 0)               |          skb_queue_tail() {
+ 0)   0.044 us    |            _raw_spin_lock_irqsave();
+ 0)   0.058 us    |            _raw_spin_unlock_irqrestore();
+ 0)   1.037 us    |          }
+ 0)   0.073 us    |          sock_def_readable();
+ 0)   1.985 us    |        }
+ 0)   0.044 us    |        mutex_unlock();
+ 0)   0.045 us    |        module_put();
+ 0)               |        consume_skb() {
+ 0)               |          skb_release_all() {
+ 0)               |            skb_release_head_state() {
+ 0)               |              netlink_skb_destructor() {
+ 0)   0.055 us    |                sock_rfree();
+ 0)   0.511 us    |              }
+ 0)   0.972 us    |            }
+ 0)               |            skb_release_data() {
+ 0)   0.096 us    |              kfree();
+ 0)   0.567 us    |            }
+ 0)   2.388 us    |          }
+ 0)               |          kfree_skbmem() {
+ 0)   0.053 us    |            kmem_cache_free();
+ 0)   0.491 us    |          }
+ 0)   3.682 us    |        }
+ 0) + 16.756 us   |      }
+ 0)   0.040 us    |      put_pid();
+ 0)               |      __wake_up() {
+ 0)   0.049 us    |        _raw_spin_lock_irqsave();
+ 0)   0.061 us    |        __wake_up_common();
+ 0)   0.057 us    |        _raw_spin_unlock_irqrestore();
+ 0)   1.459 us    |      }
+ 0) + 27.170 us   |    }
+ 0) + 28.579 us   |  }
+ 0)               |  sock_recvmsg() {
+ 0)               |    security_socket_recvmsg() {
+ 0)   0.046 us    |      cap_socket_recvmsg();
+ 0)   0.496 us    |    }
+ 0)               |    netlink_recvmsg() {
+ 0)               |      skb_recv_datagram() {
+ 0)               |        __skb_recv_datagram() {
+ 0)               |          __skb_try_recv_datagram() {
+ 0)   0.048 us    |            _raw_spin_lock_irqsave();
+ 0)   0.056 us    |            _raw_spin_unlock_irqrestore();
+ 0)   0.937 us    |          }
+ 0)   1.380 us    |        }
+ 0)   1.813 us    |      }
+ 0)   0.120 us    |      skb_copy_datagram_iovec();
+ 0)               |      skb_free_datagram() {
+ 0)               |        consume_skb() {
+ 0)               |          skb_release_all() {
+ 0)               |            skb_release_head_state() {
+ 0)               |              netlink_skb_destructor() {
+ 0)   0.044 us    |                sock_rfree();
+ 0)   0.479 us    |              }
+ 0)   0.966 us    |            }
+ 0)               |            skb_release_data() {
+ 0)   0.089 us    |              kfree();
+ 0)   0.554 us    |            }
+ 0)   2.348 us    |          }
+ 0)               |          kfree_skbmem() {
+ 0)   0.055 us    |            kmem_cache_free();
+ 0)   0.508 us    |          }
+ 0)   3.704 us    |        }
+ 0)   4.189 us    |      }
+ 0)   0.042 us    |      put_pid();
+ 0)               |      __wake_up() {
+ 0)   0.050 us    |        _raw_spin_lock_irqsave();
+ 0)   0.044 us    |        __wake_up_common();
+ 0)   0.053 us    |        _raw_spin_unlock_irqrestore();
+ 0)   1.378 us    |      }
+ 0)   9.969 us    |    }
+ 0) + 11.374 us   |  }
+ ------------------------------------------
+ 1)  gnome-s-2869  =>  gnome-t-3979 
+ ------------------------------------------
+
+ 1)               |  sock_recvmsg() {
+ 1)               |    security_socket_recvmsg() {
+ 1)   0.091 us    |      cap_socket_recvmsg();
+ 1)   0.924 us    |    }
+ 1)               |    unix_stream_recvmsg() {
+ 1)               |      unix_stream_read_generic() {
+ 1)               |        mutex_lock_interruptible() {
+ 1)   0.069 us    |          _cond_resched();
+ 1)   0.827 us    |        }
+ 1)   0.078 us    |        _raw_spin_lock();
+ 1)               |        unix_stream_read_actor() {
+ 1)   0.342 us    |          skb_copy_datagram_iovec();
+ 1)   1.090 us    |        }
+ 1)   0.111 us    |        consume_skb();
+ 1)               |        skb_unlink() {
+ 1)   0.084 us    |          _raw_spin_lock_irqsave();
+ 1)   0.084 us    |          _raw_spin_unlock_irqrestore();
+ 1)   1.485 us    |        }
+ 1)               |        consume_skb() {
+ 1)               |          skb_release_all() {
+ 1)               |            skb_release_head_state() {
+ 1)               |              unix_destruct_scm() {
+ 1)   0.070 us    |                put_pid();
+ 1)               |                sock_wfree() {
+ 1)               |                  unix_write_space() {
+ 1)               |                    __wake_up_sync_key() {
+ 1)   0.078 us    |                      _raw_spin_lock_irqsave();
+ 1)               |                      __wake_up_common() {
+ 1)               |                        ep_poll_callback() {
+ 1)   0.124 us    |                          _raw_spin_lock_irqsave();
+ 1)   0.082 us    |                          _raw_spin_unlock_irqrestore();
+ 1)   1.663 us    |                        }
+ 1)   2.467 us    |                      }
+ 1)   0.088 us    |                      _raw_spin_unlock_irqrestore();
+ 1)   4.626 us    |                    }
+ 1)   5.720 us    |                  }
+ 1)   6.569 us    |                }
+ 1)   7.961 us    |              }
+ 1)   8.715 us    |            }
+ 1)               |            skb_release_data() {
+ 1)   0.219 us    |              kfree();
+ 1)   0.987 us    |            }
+ 1) + 11.168 us   |          }
+ 1)               |          kfree_skbmem() {
+ 1)   0.131 us    |            kmem_cache_free();
+ 1)   0.866 us    |          }
+ 1) + 13.365 us   |        }
+ 1)   0.084 us    |        _raw_spin_lock();
+ 1)   0.078 us    |        mutex_unlock();
+ 1)   0.061 us    |        put_pid();
+ 1) + 23.794 us   |      }
+ 1) + 24.548 us   |    }
+ 1) + 26.858 us   |  }
+ 1)               |  sock_recvmsg() {
+ 1)               |    security_socket_recvmsg() {
+ 1)   0.081 us    |      cap_socket_recvmsg();
+ 1)   0.840 us    |    }
+ 1)               |    unix_stream_recvmsg() {
+ 1)               |      unix_stream_read_generic() {
+ 1)               |        mutex_lock_interruptible() {
+ 1)   0.075 us    |          _cond_resched();
+ 1)   0.747 us    |        }
+ 1)   0.079 us    |        _raw_spin_lock();
+ 1)   0.080 us    |        mutex_unlock();
+ 1)   0.075 us    |        put_pid();
+ 1)   3.702 us    |      }
+ 1)   4.377 us    |    }
+ 1)   6.733 us    |  }
+ 1)               |  sock_recvmsg() {
+ 1)               |    security_socket_recvmsg() {
+ 1)   0.090 us    |      cap_socket_recvmsg();
+ 1)   0.836 us    |    }
+ 1)               |    unix_stream_recvmsg() {
+ 1)               |      unix_stream_read_generic() {
+ 1)               |        mutex_lock_interruptible() {
+ 1)   0.058 us    |          _cond_resched();
+ 1)   0.735 us    |        }
+ 1)   0.083 us    |        _raw_spin_lock();
+ 1)   0.074 us    |        mutex_unlock();
+ 1)   0.071 us    |        put_pid();
+ 1)   3.650 us    |      }
+ 1)   4.368 us    |    }
+ 1)   6.563 us    |  }
+ ------------------------------------------
+ 1)  gnome-t-3979  =>     X-1956    
+ ------------------------------------------
+
+ 1)               |  sock_recvmsg() {
+ 1)               |    security_socket_recvmsg() {
+ 1)   0.090 us    |      cap_socket_recvmsg();
+ 1)   0.871 us    |    }
+ 1)               |    unix_stream_recvmsg() {
+ 1)               |      unix_stream_read_generic() {
+ 1)               |        mutex_lock_interruptible() {
+ 1)               |          _cond_resched() {
+ 1)               |            __cond_resched() {
+ 1)               |              __schedule() {
+ 1)   0.069 us    |                rcu_note_context_switch();
+ 1)   0.095 us    |                _raw_spin_lock_irq();
+ 1)               |                put_prev_task_fair() {
+ 1)               |                  update_curr() {
+ 1)   0.079 us    |                    intel_pstate_update_util();
+ 1)   0.914 us    |                  }
+ 1)   0.132 us    |                  __enqueue_entity();
+ 1)   2.603 us    |                }
+ 1)               |                pick_next_task_fair() {
+ 1)   0.099 us    |                  clear_buddies();
+ 1)   0.120 us    |                  set_next_entity();
+ 1)   1.648 us    |                }
+ 1)   0.172 us    |                __switch_to_xtra();
+ 1)               |                finish_task_switch() {
+ 1)   ==========> |
+ 1)               |                  smp_apic_timer_interrupt() {
+ 1)               |                    irq_enter() {
+ 1)   0.115 us    |                      rcu_irq_enter();
+ 1)   0.779 us    |                    }
+ 1)   0.065 us    |                    exit_idle();
+ 1)               |                    local_apic_timer_interrupt() {
+ 1)               |                      hrtimer_interrupt() {
+ 1)   0.074 us    |                        _raw_spin_lock();
+ 1)   0.143 us    |                        ktime_get_update_offsets_now();
+ 1)               |                        __hrtimer_run_queues() {
+ 1)   0.348 us    |                          __remove_hrtimer();
+ 1)               |                          tick_sched_timer() {
+ 1)   0.160 us    |                            ktime_get();
+ 1)   0.078 us    |                            tick_sched_do_timer();
+ 1)               |                            tick_sched_handle() {
+ 1)               |                              update_process_times() {
+ 1)               |                                account_process_tick() {
+ 1)               |                                  account_system_time() {
+ 1)   0.126 us    |                                    cpuacct_account_field();
+ 1)               |                                    acct_account_cputime() {
+ 1)   0.132 us    |                                      __acct_update_integrals();
+ 1)   0.859 us    |                                    }
+ 1)   2.423 us    |                                  }
+ 1)   3.169 us    |                                }
+ 1)   0.072 us    |                                hrtimer_run_queues();
+ 1)   0.099 us    |                                raise_softirq();
+ 1)               |                                rcu_check_callbacks() {
+ 1)   0.126 us    |                                  cpu_needs_another_gp();
+ 1)   0.086 us    |                                  cpu_needs_another_gp();
+ 1)   1.974 us    |                                }
+ 1)               |                                scheduler_tick() {
+ 1)   0.094 us    |                                  _raw_spin_lock();
+ 1)   0.162 us    |                                  __update_cpu_load();
+ 1)               |                                  task_tick_fair() {
+ 1)               |                                    update_curr() {
+ 1)   0.078 us    |                                      intel_pstate_update_util();
+ 1)   0.987 us    |                                    }
+ 1)   0.233 us    |                                    update_cfs_rq_blocked_load();
+ 1)   0.098 us    |                                    update_cfs_shares();
+ 1)               |                                    sched_slice.isra.58() {
+ 1)   0.128 us    |                                      __calc_delta();
+ 1)   0.926 us    |                                    }
+ 1)   5.155 us    |                                  }
+ 1)               |                                  trigger_load_balance() {
+ 1)   0.077 us    |                                    idle_cpu();
+ 1)   0.848 us    |                                  }
+ 1)   9.433 us    |                                }
+ 1)               |                                run_posix_cpu_timers() {
+ 1)               |                                  task_cputime() {
+ 1)   0.093 us    |                                    fetch_task_cputime();
+ 1)   0.819 us    |                                  }
+ 1)   1.743 us    |                                }
+ 1) + 20.554 us   |                              }
+ 1)   0.082 us    |                              profile_tick();
+ 1) + 22.105 us   |                            }
+ 1)   0.100 us    |                            hrtimer_forward();
+ 1) + 25.062 us   |                          }
+ 1)   0.076 us    |                          _raw_spin_lock();
+ 1)   0.287 us    |                          enqueue_hrtimer();
+ 1) + 28.875 us   |                        }
+ 1)   0.149 us    |                        __hrtimer_get_next_event();
+ 1)               |                        tick_program_event() {
+ 1)               |                          clockevents_program_event() {
+ 1)   0.128 us    |                            ktime_get();
+ 1)   0.235 us    |                            lapic_next_deadline();
+ 1)   1.825 us    |                          }
+ 1)   2.558 us    |                        }
+ 1) + 35.005 us   |                      }
+ 1) + 35.707 us   |                    }
+ 1)               |                    irq_exit() {
+ 1)               |                      do_softirq() {
+ 1)               |                        __do_softirq() {
+ 1)   0.075 us    |                          msecs_to_jiffies();
+ 1)               |                          smp_reschedule_interrupt() {
+ 1)   0.101 us    |                            scheduler_ipi();
+ 1)   0.991 us    |                          }
+ 1)               |                          run_timer_softirq() {
+ 1)   0.071 us    |                            _raw_spin_lock_irq();
+ 1)   1.040 us    |                          }
+ 1)   0.077 us    |                          rcu_bh_qs();
+ 1)   0.076 us    |                          __local_bh_enable();
+ 1)   6.340 us    |                        }
+ 1)   7.179 us    |                      }
+ 1)   0.082 us    |                      idle_cpu();
+ 1)   0.103 us    |                      rcu_irq_exit();
+ 1)   9.431 us    |                    }
+ 1) + 48.638 us   |                  }
+ 1)   <========== |
+ 1) + 49.853 us   |                }
+ 1)   0.078 us    |                rcu_note_context_switch();
+ 1)   0.069 us    |                _raw_spin_lock_irq();
+ 1)               |                put_prev_task_fair() {
+ 1)               |                  update_curr() {
+ 1)   0.077 us    |                    intel_pstate_update_util();
+ 1)   0.979 us    |                  }
+ 1)   0.109 us    |                  __enqueue_entity();
+ 1)   2.485 us    |                }
+ 1)               |                pick_next_task_fair() {
+ 1)   0.102 us    |                  clear_buddies();
+ 1)   0.134 us    |                  set_next_entity();
+ 1)   1.624 us    |                }
+ ------------------------------------------
+ 1)     X-1956     =>  gnome-t-3979 
+ ------------------------------------------
+
+ 1)               |  sock_recvmsg() {
+ 1)               |    security_socket_recvmsg() {
+ 1)   0.082 us    |      cap_socket_recvmsg();
+ 1)   0.800 us    |    }
+ 1)               |    unix_stream_recvmsg() {
+ 1)               |      unix_stream_read_generic() {
+ 1)               |        mutex_lock_interruptible() {
+ 1)   0.072 us    |          _cond_resched();
+ 1)   0.779 us    |        }
+ 1)   0.079 us    |        _raw_spin_lock();
+ 1)   0.063 us    |        mutex_unlock();
+ 1)   0.071 us    |        put_pid();
+ 1)   3.692 us    |      }
+ 1)   4.416 us    |    }
+ 1)   6.617 us    |  }
+ 1)               |  sock_recvmsg() {
+ 1)               |    security_socket_recvmsg() {
+ 1)   0.084 us    |      cap_socket_recvmsg();
+ 1)   0.878 us    |    }
+ 1)               |    unix_stream_recvmsg() {
+ 1)               |      unix_stream_read_generic() {
+ 1)               |        mutex_lock_interruptible() {
+ 1)   0.072 us    |          _cond_resched();
+ 1)   0.744 us    |        }
+ 1)   0.076 us    |        _raw_spin_lock();
+ 1)   0.073 us    |        mutex_unlock();
+ 1)   0.071 us    |        put_pid();
+ 1)   3.740 us    |      }
+ 1)   4.422 us    |    }
+ 1)   6.718 us    |  }
+ ------------------------------------------
+ 1)  gnome-t-3979  =>     X-1956    
+ ------------------------------------------
+
+ 1)   0.198 us    |                __switch_to_xtra();
+ 1)   0.071 us    |                finish_task_switch();
+ 1) ! 159.199 us  |              }
+ 1) ! 160.411 us  |            }
+ 1) ! 161.176 us  |          } /* _cond_resched */
+ 1) ! 161.971 us  |        } /* mutex_lock_interruptible */
+ 1)   0.073 us    |        _raw_spin_lock();
+ 1)   0.074 us    |        mutex_unlock();
+ 1)   0.072 us    |        put_pid();
+ 1) ! 164.983 us  |      } /* unix_stream_read_generic */
+ 1) ! 165.723 us  |    } /* unix_stream_recvmsg */
+ 1) ! 168.237 us  |  } /* sock_recvmsg */
+ ------------------------------------------
+ 1)     X-1956     =>  gnome-s-2869 
+ ------------------------------------------
+
+ 1)               |  sock_recvmsg() {
+ 1)               |    security_socket_recvmsg() {
+ 1)   0.249 us    |      cap_socket_recvmsg();
+ 1)   1.165 us    |    }
+ 1)               |    unix_stream_recvmsg() {
+ 1)               |      unix_stream_read_generic() {
+ 1)               |        mutex_lock_interruptible() {
+ 1)   0.070 us    |          _cond_resched();
+ 1)   0.842 us    |        }
+ 1)   0.135 us    |        _raw_spin_lock();
+ 1)   0.076 us    |        mutex_unlock();
+ 1)   0.143 us    |        put_pid();
+ 1)   4.173 us    |      }
+ 1)   4.967 us    |    }
+ 1)   7.703 us    |  }
+ ------------------------------------------
+ 0)   wget-23486   =>     X-1956    
+ ------------------------------------------
+
+ 0)               |  sock_recvmsg() {
+ 0)               |    security_socket_recvmsg() {
+ 0)   0.078 us    |      cap_socket_recvmsg();
+ 0)   0.758 us    |    }
+ 0)               |    unix_stream_recvmsg() {
+ 0)               |      unix_stream_read_generic() {
+ 0)               |        mutex_lock_interruptible() {
+ 0)   0.044 us    |          _cond_resched();
+ 0)   0.626 us    |        }
+ 0)   0.070 us    |        _raw_spin_lock();
+ 0)               |        unix_stream_read_actor() {
+ 0)   0.565 us    |          skb_copy_datagram_iovec();
+ 0)   1.097 us    |        }
+ 0)   0.092 us    |        consume_skb();
+ 0)               |        skb_unlink() {
+ 0)   0.067 us    |          _raw_spin_lock_irqsave();
+ 0)   0.056 us    |          _raw_spin_unlock_irqrestore();
+ 0)   1.031 us    |        }
+ 0)               |        consume_skb() {
+ 0)               |          skb_release_all() {
+ 0)               |            skb_release_head_state() {
+ 0)               |              unix_destruct_scm() {
+ 0)   0.047 us    |                put_pid();
+ 0)               |                sock_wfree() {
+ 0)               |                  unix_write_space() {
+ 0)               |                    __wake_up_sync_key() {
+ 0)   0.067 us    |                      _raw_spin_lock_irqsave();
+ 0)               |                      __wake_up_common() {
+ 0)   0.048 us    |                        pollwake();
+ 0)   0.653 us    |                      }
+ 0)   0.057 us    |                      _raw_spin_unlock_irqrestore();
+ 0)   1.997 us    |                    }
+ 0)   2.619 us    |                  }
+ 0)   3.393 us    |                }
+ 0)   4.389 us    |              }
+ 0)   4.880 us    |            }
+ 0)               |            skb_release_data() {
+ 0)               |              kfree() {
+ 0)   0.134 us    |                __slab_free();
+ 0)   0.957 us    |              }
+ 0)   1.426 us    |            }
+ 0)   7.211 us    |          }
+ 0)               |          kfree_skbmem() {
+ 0)               |            kmem_cache_free() {
+ 0)   0.094 us    |              __slab_free();
+ 0)   0.645 us    |            }
+ 0)   1.085 us    |          }
+ 0)   9.204 us    |        }
+ 0)   0.044 us    |        _raw_spin_lock();
+ 0)   0.050 us    |        mutex_unlock();
+ 0)   0.040 us    |        put_pid();
+ 0) + 16.440 us   |      }
+ 0) + 17.576 us   |    }
+ 0) + 19.461 us   |  }
+ 0)               |  sock_recvmsg() {
+ 0)               |    security_socket_recvmsg() {
+ 0)   0.074 us    |      cap_socket_recvmsg();
+ 0)   0.674 us    |    }
+ 0)               |    unix_stream_recvmsg() {
+ 0)               |      unix_stream_read_generic() {
+ 0)               |        mutex_lock_interruptible() {
+ 0)   0.044 us    |          _cond_resched();
+ 0)   0.483 us    |        }
+ 0)   0.046 us    |        _raw_spin_lock();
+ 0)   0.046 us    |        mutex_unlock();
+ 0)   0.040 us    |        put_pid();
+ 0)   2.354 us    |      }
+ 0)   2.854 us    |    }
+ 0)   4.456 us    |  }
+ 1)               |  sock_recvmsg() {
+ 1)               |    security_socket_recvmsg() {
+ 1)   0.101 us    |      cap_socket_recvmsg();
+ 1)   1.012 us    |    }
+ 1)               |    unix_stream_recvmsg() {
+ 1)               |      unix_stream_read_generic() {
+ 1)               |        mutex_lock_interruptible() {
+ 1)   0.073 us    |          _cond_resched();
+ 1)   0.848 us    |        }
+ 1)   0.084 us    |        _raw_spin_lock();
+ 1)               |        unix_stream_read_actor() {
+ 1)   0.324 us    |          skb_copy_datagram_iovec();
+ 1)   1.079 us    |        }
+ 1)   0.110 us    |        consume_skb();
+ 1)               |        skb_unlink() {
+ 1)   0.126 us    |          _raw_spin_lock_irqsave();
+ 1)   0.089 us    |          _raw_spin_unlock_irqrestore();
+ 1)   1.552 us    |        }
+ 1)               |        consume_skb() {
+ 1)               |          skb_release_all() {
+ 1)               |            skb_release_head_state() {
+ 1)               |              unix_destruct_scm() {
+ 1)   0.070 us    |                put_pid();
+ 1)               |                sock_wfree() {
+ 1)               |                  unix_write_space() {
+ 1)               |                    __wake_up_sync_key() {
+ 1)   0.080 us    |                      _raw_spin_lock_irqsave();
+ 1)               |                      __wake_up_common() {
+ 1)               |                        ep_poll_callback() {
+ 1)   0.124 us    |                          _raw_spin_lock_irqsave();
+ 1)   0.084 us    |                          _raw_spin_unlock_irqrestore();
+ 1)   1.737 us    |                        }
+ 1)   2.468 us    |                      }
+ 1)   0.098 us    |                      _raw_spin_unlock_irqrestore();
+ 1)   4.614 us    |                    }
+ 1)   5.318 us    |                  }
+ 1)   6.116 us    |                }
+ 1)   7.594 us    |              }
+ 1)   8.572 us    |            }
+ 1)               |            skb_release_data() {
+ 1)               |              kfree() {
+ 1)   0.397 us    |                __slab_free();
+ 1)   1.330 us    |              }
+ 1)   2.143 us    |            }
+ 1) + 12.103 us   |          }
+ 1)               |          kfree_skbmem() {
+ 1)               |            kmem_cache_free() {
+ 1)   0.204 us    |              __slab_free();
+ 1)   1.001 us    |            }
+ 1)   1.697 us    |          }
+ 1) + 15.190 us   |        }
+ 1)   0.075 us    |        _raw_spin_lock();
+ 1)   0.074 us    |        mutex_unlock();
+ 1)   0.059 us    |        put_pid();
+ 1) + 25.959 us   |      }
+ 1) + 26.686 us   |    }
+ 1) + 29.159 us   |  }
+ 1)               |  sock_recvmsg() {
+ 1)               |    security_socket_recvmsg() {
+ 1)   0.077 us    |      cap_socket_recvmsg();
+ 1)   0.916 us    |    }
+ 1)               |    unix_stream_recvmsg() {
+ 1)               |      unix_stream_read_generic() {
+ 1)               |        mutex_lock_interruptible() {
+ 1)   0.067 us    |          _cond_resched();
+ 1)   0.803 us    |        }
+ 1)   0.074 us    |        _raw_spin_lock();
+ 1)   0.077 us    |        mutex_unlock();
+ 1)   0.071 us    |        put_pid();
+ 1)   3.749 us    |      }
+ 1)   4.448 us    |    }
+ 1)   6.779 us    |  }
+ 0)               |  sock_recvmsg() {
+ 0)               |    security_socket_recvmsg() {
+ 0)   0.053 us    |      cap_socket_recvmsg();
+ 0)   0.703 us    |    }
+ 0)               |    unix_stream_recvmsg() {
+ 0)               |      unix_stream_read_generic() {
+ 0)               |        mutex_lock_interruptible() {
+ 0)   0.044 us    |          _cond_resched();
+ 0)   0.479 us    |        }
+ 0)   0.070 us    |        _raw_spin_lock();
+ 0)               |        unix_stream_read_actor() {
+ 0)   0.322 us    |          skb_copy_datagram_iovec();
+ 0)   0.846 us    |        }
+ 0)   0.069 us    |        consume_skb();
+ 0)               |        skb_unlink() {
+ 0)   0.074 us    |          _raw_spin_lock_irqsave();
+ 0)   0.056 us    |          _raw_spin_unlock_irqrestore();
+ 0)   0.947 us    |        }
+ 0)               |        consume_skb() {
+ 0)               |          skb_release_all() {
+ 0)               |            skb_release_head_state() {
+ 0)               |              unix_destruct_scm() {
+ 0)   0.044 us    |                put_pid();
+ 0)               |                sock_wfree() {
+ 0)               |                  unix_write_space() {
+ 0)               |                    __wake_up_sync_key() {
+ 0)   0.065 us    |                      _raw_spin_lock_irqsave();
+ 0)               |                      __wake_up_common() {
+ 0)   0.048 us    |                        pollwake();
+ 0)   0.563 us    |                      }
+ 0)   0.057 us    |                      _raw_spin_unlock_irqrestore();
+ 0)   1.945 us    |                    }
+ 0)   2.545 us    |                  }
+ 0)   3.128 us    |                }
+ 0)   4.119 us    |              }
+ 0)   4.584 us    |            }
+ 0)               |            skb_release_data() {
+ 0)               |              kfree() {
+ 0)   0.179 us    |                __slab_free();
+ 0)   0.808 us    |              }
+ 0)   1.333 us    |            }
+ 0)   6.724 us    |          }
+ 0)               |          kfree_skbmem() {
+ 0)               |            kmem_cache_free() {
+ 0)   0.090 us    |              __slab_free();
+ 0)   0.597 us    |            }
+ 0)   1.037 us    |          }
+ 0)   8.589 us    |        }
+ 0)   0.044 us    |        _raw_spin_lock();
+ 0)   0.044 us    |        mutex_unlock();
+ 0)   0.040 us    |        put_pid();
+ 0) + 15.098 us   |      }
+ 0) + 15.545 us   |    }
+ 0) + 17.162 us   |  }
+ 0)               |  sock_recvmsg() {
+ 0)               |    security_socket_recvmsg() {
+ 0)   0.046 us    |      cap_socket_recvmsg();
+ 0)   0.531 us    |    }
+ 0)               |    unix_stream_recvmsg() {
+ 0)               |      unix_stream_read_generic() {
+ 0)               |        mutex_lock_interruptible() {
+ 0)   0.042 us    |          _cond_resched();
+ 0)   0.916 us    |        }
+ 0)   0.046 us    |        _raw_spin_lock();
+ 0)   0.043 us    |        mutex_unlock();
+ 0)   0.040 us    |        put_pid();
+ 0)   2.776 us    |      }
+ 0)   3.225 us    |    }
+ 0)   4.628 us    |  }
+ 1)               |  sock_recvmsg() {
+ 1)               |    security_socket_recvmsg() {
+ 1)   0.115 us    |      cap_socket_recvmsg();
+ 1)   0.979 us    |    }
+ 1)               |    unix_stream_recvmsg() {
+ 1)               |      unix_stream_read_generic() {
+ 1)               |        mutex_lock_interruptible() {
+ 1)   0.057 us    |          _cond_resched();
+ 1)   0.832 us    |        }
+ 1)   0.098 us    |        _raw_spin_lock();
+ 1)               |        unix_stream_read_actor() {
+ 1)   0.340 us    |          skb_copy_datagram_iovec();
+ 1)   1.044 us    |        }
+ 1)   0.095 us    |        consume_skb();
+ 1)               |        skb_unlink() {
+ 1)   0.088 us    |          _raw_spin_lock_irqsave();
+ 1)   0.082 us    |          _raw_spin_unlock_irqrestore();
+ 1)   1.562 us    |        }
+ 1)               |        consume_skb() {
+ 1)               |          skb_release_all() {
+ 1)               |            skb_release_head_state() {
+ 1)               |              unix_destruct_scm() {
+ 1)   0.068 us    |                put_pid();
+ 1)               |                sock_wfree() {
+ 1)               |                  unix_write_space() {
+ 1)               |                    __wake_up_sync_key() {
+ 1)   0.082 us    |                      _raw_spin_lock_irqsave();
+ 1)               |                      __wake_up_common() {
+ 1)               |                        ep_poll_callback() {
+ 1)   0.105 us    |                          _raw_spin_lock_irqsave();
+ 1)   0.080 us    |                          _raw_spin_unlock_irqrestore();
+ 1)   1.617 us    |                        }
+ 1)   2.424 us    |                      }
+ 1)   0.082 us    |                      _raw_spin_unlock_irqrestore();
+ 1)   4.574 us    |                    }
+ 1)   5.403 us    |                  }
+ 1)   6.191 us    |                }
+ 1)   7.724 us    |              }
+ 1)   8.587 us    |            }
+ 1)               |            skb_release_data() {
+ 1)               |              kfree() {
+ 1)   0.245 us    |                __slab_free();
+ 1)   1.149 us    |              }
+ 1)   1.923 us    |            }
+ 1) + 11.995 us   |          }
+ 1)               |          kfree_skbmem() {
+ 1)               |            kmem_cache_free() {
+ 1)   0.130 us    |              __slab_free();
+ 1)   0.857 us    |            }
+ 1)   1.680 us    |          }
+ 1) + 15.173 us   |        }
+ 1)   0.072 us    |        _raw_spin_lock();
+ 1)   0.074 us    |        mutex_unlock();
+ 1)   0.067 us    |        put_pid();
+ 1) + 25.312 us   |      }
+ 1) + 26.595 us   |    }
+ 1) + 29.090 us   |  }
+ 1)               |  sock_recvmsg() {
+ 1)               |    security_socket_recvmsg() {
+ 1)   0.074 us    |      cap_socket_recvmsg();
+ 1)   0.903 us    |    }
+ 1)               |    unix_stream_recvmsg() {
+ 1)               |      unix_stream_read_generic() {
+ 1)               |        mutex_lock_interruptible() {
+ 1)   0.060 us    |          _cond_resched();
+ 1)   0.718 us    |        }
+ 1)   0.074 us    |        _raw_spin_lock();
+ 1)   0.082 us    |        mutex_unlock();
+ 1)   0.073 us    |        put_pid();
+ 1)   3.742 us    |      }
+ 1)   4.454 us    |    }
+ 1)   6.831 us    |  }
+ 1)               |  sock_recvmsg() {
+ 1)               |    security_socket_recvmsg() {
+ 1)   0.095 us    |      cap_socket_recvmsg();
+ 1)   0.943 us    |    }
+ 1)               |    unix_stream_recvmsg() {
+ 1)               |      unix_stream_read_generic() {
+ 1)               |        mutex_lock_interruptible() {
+ 1)   0.058 us    |          _cond_resched();
+ 1)   0.742 us    |        }
+ 1)   0.073 us    |        _raw_spin_lock();
+ 1)   0.070 us    |        mutex_unlock();
+ 1)   0.067 us    |        put_pid();
+ 1)   3.997 us    |      }
+ 1)   4.742 us    |    }
+ 1)   7.199 us    |  }
+ 0)               |  sock_recvmsg() {
+ 0)               |    security_socket_recvmsg() {
+ 0)   0.071 us    |      cap_socket_recvmsg();
+ 0)   0.743 us    |    }
+ 0)               |    unix_stream_recvmsg() {
+ 0)               |      unix_stream_read_generic() {
+ 0)               |        mutex_lock_interruptible() {
+ 0)   0.044 us    |          _cond_resched();
+ 0)   0.535 us    |        }
+ 0)   0.066 us    |        _raw_spin_lock();
+ 0)               |        unix_stream_read_actor() {
+ 0)   0.244 us    |          skb_copy_datagram_iovec();
+ 0)   0.684 us    |        }
+ 0)   0.070 us    |        consume_skb();
+ 0)               |        skb_unlink() {
+ 0)   0.068 us    |          _raw_spin_lock_irqsave();
+ 0)   0.056 us    |          _raw_spin_unlock_irqrestore();
+ 0)   1.020 us    |        }
+ 0)               |        consume_skb() {
+ 0)               |          skb_release_all() {
+ 0)               |            skb_release_head_state() {
+ 0)               |              unix_destruct_scm() {
+ 0)   0.043 us    |                put_pid();
+ 0)               |                sock_wfree() {
+ 0)   0.185 us    |                  unix_write_space();
+ 0)   0.685 us    |                }
+ 0)   1.669 us    |              }
+ 0)   2.159 us    |            }
+ 0)               |            skb_release_data() {
+ 0)               |              kfree() {
+ 0)   0.121 us    |                __slab_free();
+ 0)   0.763 us    |              }
+ 0)   1.260 us    |            }
+ 0)   4.311 us    |          }
+ 0)               |          kfree_skbmem() {
+ 0)               |            kmem_cache_free() {
+ 0)   0.089 us    |              __slab_free();
+ 0)   0.624 us    |            }
+ 0)   1.149 us    |          }
+ 0)   6.291 us    |        }
+ 0)   0.042 us    |        _raw_spin_lock();
+ 0)   0.044 us    |        mutex_unlock();
+ 0)   0.040 us    |        put_pid();
+ 0) + 12.760 us   |      }
+ 0) + 13.291 us   |    }
+ 0) + 15.070 us   |  }
+ 0)               |  sock_recvmsg() {
+ 0)               |    security_socket_recvmsg() {
+ 0)   0.084 us    |      cap_socket_recvmsg();
+ 0)   0.750 us    |    }
+ 0)               |    unix_stream_recvmsg() {
+ 0)               |      unix_stream_read_generic() {
+ 0)               |        mutex_lock_interruptible() {
+ 0)   0.059 us    |          _cond_resched();
+ 0)   0.700 us    |        }
+ 0)   0.077 us    |        _raw_spin_lock();
+ 0)   0.056 us    |        mutex_unlock();
+ 0)   0.055 us    |        put_pid();
+ 0)   3.386 us    |      }
+ 0)   4.033 us    |    }
+ 0)   5.932 us    |  }
+ 0)               |  sock_recvmsg() {
+ 0)               |    security_socket_recvmsg() {
+ 0)   0.063 us    |      cap_socket_recvmsg();
+ 0)   0.687 us    |    }
+ 0)               |    unix_stream_recvmsg() {
+ 0)               |      unix_stream_read_generic() {
+ 0)               |        mutex_lock_interruptible() {
+ 0)   0.048 us    |          _cond_resched();
+ 0)   0.491 us    |        }
+ 0)   0.073 us    |        _raw_spin_lock();
+ 0)               |        unix_stream_read_actor() {
+ 0)   0.210 us    |          skb_copy_datagram_iovec();
+ 0)   0.659 us    |        }
+ 0)   0.057 us    |        consume_skb();
+ 0)               |        skb_unlink() {
+ 0)   0.074 us    |          _raw_spin_lock_irqsave();
+ 0)   0.053 us    |          _raw_spin_unlock_irqrestore();
+ 0)   1.121 us    |        }
+ 0)               |        consume_skb() {
+ 0)               |          skb_release_all() {
+ 0)               |            skb_release_head_state() {
+ 0)               |              unix_destruct_scm() {
+ 0)   0.046 us    |                put_pid();
+ 0)               |                sock_wfree() {
+ 0)               |                  unix_write_space() {
+ 0)               |                    __wake_up_sync_key() {
+ 0)   0.065 us    |                      _raw_spin_lock_irqsave();
+ 0)               |                      __wake_up_common() {
+ 0)   0.051 us    |                        pollwake();
+ 0)   0.600 us    |                      }
+ 0)   0.056 us    |                      _raw_spin_unlock_irqrestore();
+ 0)   1.974 us    |                    }
+ 0)   2.552 us    |                  }
+ 0)   3.148 us    |                }
+ 0)   4.126 us    |              }
+ 0)   4.641 us    |            }
+ 0)               |            skb_release_data() {
+ 0)               |              kfree() {
+ 0)   0.120 us    |                __slab_free();
+ 0)   0.706 us    |              }
+ 0)   1.164 us    |            }
+ 0)   6.642 us    |          }
+ 0)               |          kfree_skbmem() {
+ 0)               |            kmem_cache_free() {
+ 0)   0.131 us    |              __slab_free();
+ 0)   0.620 us    |            }
+ 0)   1.079 us    |          }
+ 0)   8.605 us    |        }
+ 0)   0.046 us    |        _raw_spin_lock();
+ 0)               |        unix_stream_read_actor() {
+ 0)   0.099 us    |          skb_copy_datagram_iovec();
+ 0)   0.574 us    |        }
+ 0)   0.046 us    |        consume_skb();
+ 0)               |        skb_unlink() {
+ 0)   0.047 us    |          _raw_spin_lock_irqsave();
+ 0)   0.053 us    |          _raw_spin_unlock_irqrestore();
+ 0)   0.962 us    |        }
+ 0)               |        consume_skb() {
+ 0)               |          skb_release_all() {
+ 0)               |            skb_release_head_state() {
+ 0)               |              unix_destruct_scm() {
+ 0)   0.046 us    |                put_pid();
+ 0)               |                sock_wfree() {
+ 0)               |                  unix_write_space() {
+ 0)               |                    __wake_up_sync_key() {
+ 0)   0.049 us    |                      _raw_spin_lock_irqsave();
+ 0)               |                      __wake_up_common() {
+ 0)   0.043 us    |                        pollwake();
+ 0)   0.498 us    |                      }
+ 0)   0.056 us    |                      _raw_spin_unlock_irqrestore();
+ 0)   1.840 us    |                    }
+ 0)   2.308 us    |                  }
+ 0)   2.761 us    |                }
+ 0)   3.669 us    |              }
+ 0)   4.114 us    |            }
+ 0)               |            skb_release_data() {
+ 0)               |              kfree() {
+ 0)   0.093 us    |                __slab_free();
+ 0)   0.515 us    |              }
+ 0)   0.997 us    |            }
+ 0)   5.903 us    |          }
+ 0)               |          kfree_skbmem() {
+ 0)               |            kmem_cache_free() {
+ 0)   0.096 us    |              __slab_free();
+ 0)   0.540 us    |            }
+ 0)   0.957 us    |          }
+ 0)   7.655 us    |        }
+ 0)   0.044 us    |        _raw_spin_lock();
+ 0)   0.048 us    |        mutex_unlock();
+ 0)   0.046 us    |        put_pid();
+ 0) + 27.279 us   |      }
+ 0) + 27.750 us   |    }
+ 0) + 29.521 us   |  }
+ 0)               |  sock_recvmsg() {
+ 0)               |    security_socket_recvmsg() {
+ 0)   0.059 us    |      cap_socket_recvmsg();
+ 0)   0.630 us    |    }
+ 0)               |    unix_stream_recvmsg() {
+ 0)               |      unix_stream_read_generic() {
+ 0)               |        mutex_lock_interruptible() {
+ 0)   0.044 us    |          _cond_resched();
+ 0)   0.508 us    |        }
+ 0)   0.046 us    |        _raw_spin_lock();
+ 0)   0.045 us    |        mutex_unlock();
+ 0)   0.042 us    |        put_pid();
+ 0)   2.493 us    |      }
+ 1)               |  sock_recvmsg() {
+ 0)   2.978 us    |    }
+ 0)   4.529 us    |  }
+ 1)               |    security_socket_recvmsg() {
+ 1)   0.093 us    |      cap_socket_recvmsg();
+ 1)   0.928 us    |    }
+ 1)               |    unix_stream_recvmsg() {
+ 1)               |      unix_stream_read_generic() {
+ 1)               |        mutex_lock_interruptible() {
+ 1)   0.054 us    |          _cond_resched();
+ 1)   0.716 us    |        }
+ 1)   0.092 us    |        _raw_spin_lock();
+ 1)               |        unix_stream_read_actor() {
+ 1)   0.281 us    |          skb_copy_datagram_iovec();
+ 1)   1.018 us    |        }
+ 1)   0.093 us    |        consume_skb();
+ 1)               |        skb_unlink() {
+ 1)   0.135 us    |          _raw_spin_lock_irqsave();
+ 1)   0.084 us    |          _raw_spin_unlock_irqrestore();
+ 1)   1.615 us    |        }
+ 1)               |        consume_skb() {
+ 1)               |          skb_release_all() {
+ 1)               |            skb_release_head_state() {
+ 1)               |              unix_destruct_scm() {
+ 1)   0.073 us    |                put_pid();
+ 1)               |                sock_wfree() {
+ 1)               |                  unix_write_space() {
+ 1)               |                    __wake_up_sync_key() {
+ 1)   0.084 us    |                      _raw_spin_lock_irqsave();
+ 1)               |                      __wake_up_common() {
+ 1)               |                        ep_poll_callback() {
+ 1)   0.110 us    |                          _raw_spin_lock_irqsave();
+ 1)   0.084 us    |                          _raw_spin_unlock_irqrestore();
+ 1)   1.592 us    |                        }
+ 1)   2.312 us    |                      }
+ 1)   0.086 us    |                      _raw_spin_unlock_irqrestore();
+ 1)   4.484 us    |                    }
+ 1)   5.286 us    |                  }
+ 1)   6.120 us    |                }
+ 1)   7.714 us    |              }
+ 1)   8.545 us    |            }
+ 1)               |            skb_release_data() {
+ 1)               |              kfree() {
+ 1)   0.199 us    |                __slab_free();
+ 1)   1.071 us    |              }
+ 1)   1.768 us    |            }
+ 1) + 11.708 us   |          }
+ 1)               |          kfree_skbmem() {
+ 1)               |            kmem_cache_free() {
+ 1)   0.142 us    |              __slab_free();
+ 1)   0.945 us    |            }
+ 1)   2.329 us    |          }
+ 1) + 15.448 us   |        }
+ 1)   0.075 us    |        _raw_spin_lock();
+ 1)   0.074 us    |        mutex_unlock();
+ 1)   0.071 us    |        put_pid();
+ 1) + 25.379 us   |      }
+ 1) + 26.118 us   |    }
+ 1) + 28.553 us   |  }
+ 1)               |  sock_recvmsg() {
+ 1)               |    security_socket_recvmsg() {
+ 1)   0.080 us    |      cap_socket_recvmsg();
+ 1)   0.889 us    |    }
+ 1)               |    unix_stream_recvmsg() {
+ 1)               |      unix_stream_read_generic() {
+ 1)               |        mutex_lock_interruptible() {
+ 1)   0.068 us    |          _cond_resched();
+ 1)   0.813 us    |        }
+ 1)   0.074 us    |        _raw_spin_lock();
+ 1)   0.078 us    |        mutex_unlock();
+ 1)   0.067 us    |        put_pid();
+ 1)   3.925 us    |      }
+ 1)   4.652 us    |    }
+ 1)   6.926 us    |  }
+ 1)               |  sock_recvmsg() {
+ 1)               |    security_socket_recvmsg() {
+ 1)   0.071 us    |      cap_socket_recvmsg();
+ 1)   0.801 us    |    }
+ 1)               |    unix_stream_recvmsg() {
+ 1)               |      unix_stream_read_generic() {
+ 1)               |        mutex_lock_interruptible() {
+ 1)   0.082 us    |          _cond_resched();
+ 1)   0.739 us    |        }
+ 1)   0.073 us    |        _raw_spin_lock();
+ 1)   0.076 us    |        mutex_unlock();
+ 1)   0.069 us    |        put_pid();
+ 1)   3.660 us    |      }
+ 1)   4.544 us    |    }
+ 1)   6.850 us    |  }
+ 1)               |  sock_recvmsg() {
+ 1)               |    security_socket_recvmsg() {
+ 1)   0.071 us    |      cap_socket_recvmsg();
+ 1)   0.848 us    |    }
+ 1)               |    unix_stream_recvmsg() {
+ 1)               |      unix_stream_read_generic() {
+ 1)               |        mutex_lock_interruptible() {
+ 1)   0.073 us    |          _cond_resched();
+ 1)   0.785 us    |        }
+ 1)   0.086 us    |        _raw_spin_lock();
+ 1)   0.078 us    |        mutex_unlock();
+ 1)   0.061 us    |        put_pid();
+ 1)   3.676 us    |      }
+ 1)   4.347 us    |    }
+ 1)   6.676 us    |  }
