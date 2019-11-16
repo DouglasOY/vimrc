@@ -351,4 +351,9 @@ nnoremap <Leader>si  :set ignorecase<cr>
 nnoremap <Leader>sn  :set noignorecase<cr>
 nnoremap <Leader>su  :%!sort -u<cr>
 
+nnoremap <Leader>ru :resize +10<cr>
+nnoremap <Leader>rd :resize -10<cr>
+
+nnoremap <F9> <c-w>H
+nnoremap <F10> <c-w>K
 
