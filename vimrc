@@ -194,6 +194,19 @@ set splitbelow
 set splitright 
 
 """"""""""""""""""""""""""""""
+" netrw -- Vexplore
+""""""""""""""""""""""""""""""
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 25
+let g:netrw_keepdir = 0
+let g:netrw_sort_options = 'i'
+" sort is affecting only: directories on the top, files below
+let g:netrw_sort_sequence = '[\/]$,*'
+
+""""""""""""""""""""""""""""""
 " => vimgrep
 """"""""""""""""""""""""""""""
 silent! map <F2> :b#<CR>
