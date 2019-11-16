@@ -527,7 +527,11 @@ nnoremap <Leader>su  :%!sort -u<cr>
 
 " hi Search term=reverse ctermfg=0 ctermbg=10 guifg=Black guibg=Yellow
 
+nnoremap <Leader>ru :resize +10<cr>
+nnoremap <Leader>rd :resize -10<cr>
 
+nnoremap <F9> <c-w>H
+nnoremap <F10> <c-w>K
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim的菜单乱码解决, 一定要加到最后.
