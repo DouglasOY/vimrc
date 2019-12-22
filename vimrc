@@ -220,6 +220,36 @@ endfunction
 nnoremap <leader>vg :call VimgrepHightWord()<cr>
 
 """"""""""""""""""""""""""""""
+" => ackgrep
+""""""""""""""""""""""""""""""
+function! AckgrepCurrentWord()
+    let curword = expand('<cword>')
+    execute 'Ack -i --match "' . curword . '"'
+endfunction
+nnoremap <leader>ag :call AckgrepCurrentWord()<cr>
+
+function! AckgrepZWord()
+    let curword = @z
+    execute 'Ack --literal --match "' . curword . '"'
+endfunction
+nnoremap <leader>az :call AckgrepZWord()<cr>
+
+""""""""""""""""""""""""""""""
+" => ripgrep
+""""""""""""""""""""""""""""""
+function! RipgrepCurrentWord()
+    let curword = expand('<cword>')
+    execute 'Rg ' . curword
+endfunction
+nnoremap <leader>rg :call RipgrepCurrentWord()<cr>
+
+function! RipgrepZWord()
+    let curword = @z
+    execute 'Rg "' . curword . '" ./'
+endfunction
+nnoremap <leader>rz :call RipgrepZWord()<cr>
+
+""""""""""""""""""""""""""""""
 " => CtrlP
 """"""""""""""""""""""""""""""
 let g:ctrlp_cmd = 'CtrlPMRU'
@@ -256,7 +286,7 @@ function! Linesearch()
     let repl = substitute(repl, "*", "\\\\*", "g")
     let @/ = repl
 endfunction
-nnoremap <leader>l :call Linesearch()<cr>
+nnoremap <leader>ll :call Linesearch()<cr>
 
 function! MultiWordsSearch()
     let line = getline(".")
@@ -479,6 +509,34 @@ nnoremap <Leader>pm  :call system('xclip', @0)<CR>
 nnoremap <Leader>pr  :call system('xclip -selection clipboard', @0)<CR>
 nnoremap <Leader>gm  :read !xclip -o<CR>
 nnoremap <Leader>gr  :read !xclip -o -selection clipboard<CR>
+
+""""""""""""""""""""""""""""""
+" => global search
+""""""""""""""""""""""""""""""
+nnoremap <leader>g2  "gy2e<CR>:Rg "<C-R>g"<CR>
+nnoremap <leader>g3  "gy3e<CR>:Rg "<C-R>g"<CR>
+nnoremap <leader>g4  "gy4e<CR>:Rg "<C-R>g"<CR>
+nnoremap <leader>g5  "gy5e<CR>:Rg "<C-R>g"<CR>
+nnoremap <leader>g6  "gy6e<CR>:Rg "<C-R>g"<CR>
+nnoremap <leader>g7  "gy7e<CR>:Rg "<C-R>g"<CR>
+nnoremap <leader>g8  "gy8e<CR>:Rg "<C-R>g"<CR>
+nnoremap <leader>g9  "gy9e<CR>:Rg "<C-R>g"<CR>
+nnoremap <leader>gw  "gyE<CR>:Rg -F "<C-R>g"<CR>
+nnoremap <leader>ge  "gy$<CR>:Rg -F "<C-R>g"<CR>
+
+""""""""""""""""""""""""""""""
+" => Local search
+""""""""""""""""""""""""""""""
+nnoremap <leader>l2  "ly2e<CR>/<C-R>l<CR>
+nnoremap <leader>l3  "ly3e<CR>/<C-R>l<CR>
+nnoremap <leader>l4  "ly4e<CR>/<C-R>l<CR>
+nnoremap <leader>l5  "ly5e<CR>/<C-R>l<CR>
+nnoremap <leader>l6  "ly6e<CR>/<C-R>l<CR>
+nnoremap <leader>l7  "ly7e<CR>/<C-R>l<CR>
+nnoremap <leader>l8  "ly8e<CR>/<C-R>l<CR>
+nnoremap <leader>l9  "ly9e<CR>/<C-R>l<CR>
+nnoremap <leader>lw  "lyE<CR>/<C-R>l<CR>
+nnoremap <leader>le  "ly$<CR>/<C-R>l<CR>
 
 """"""""""""""""""""""""""""""
 " => windows GUI settings
