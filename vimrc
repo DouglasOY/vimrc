@@ -182,7 +182,6 @@ set updatecount=75
 set comments=b:#,:%,fb:-,n:),n:> fo=cqrt
 
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
-set clipboard=unnamed
 
 """"""""""""""""""""""""""""""
 " => Status line
@@ -505,10 +504,17 @@ nnoremap <Leader>ts :!echo --==<C-R><C-w>==-- ;ici <C-R><C-W><CR>
 """"""""""""""""""""""""""""""
 " => xclip clipboard
 """"""""""""""""""""""""""""""
-nnoremap <Leader>pm  :call system('xclip', @0)<CR>
-nnoremap <Leader>pr  :call system('xclip -selection clipboard', @0)<CR>
-nnoremap <Leader>gm  :read !xclip -o<CR>
-nnoremap <Leader>gr  :read !xclip -o -selection clipboard<CR>
+set clipboard=unnamedplus
+
+nnoremap <Leader>xp1  :call system('xclip', @0)<CR>
+nnoremap <Leader>xp2  :call system('xclip -selection clipboard', @0)<CR>
+nnoremap <Leader>xy1  :read !xclip -o<CR>
+nnoremap <Leader>xy2  :read !xclip -o -selection clipboard<CR>
+
+" 设置快捷键将选中文本块复制至系统剪贴板
+vnoremap <Leader>y "+y
+" 设置快捷键将系统剪贴板内容粘贴至 vim
+nnoremap <Leader>p "+gp
 
 """"""""""""""""""""""""""""""
 " => global search
@@ -542,11 +548,6 @@ nnoremap <leader>le  "ly$<CR>/<C-R>l<CR>
 " => windows GUI settings
 """"""""""""""""""""""""""""""
 set guifont=Consolas:h11
-
-" 设置快捷键将选中文本块复制至系统剪贴板
-vnoremap <Leader>y "+y
-" 设置快捷键将系统剪贴板内容粘贴至 vim
-nnoremap <Leader>p "+p
 
 " In gvim, set mouse=a, apply command y to copy.
 " set mouse=v
