@@ -519,33 +519,54 @@ nnoremap <Leader>p "+gp
 """"""""""""""""""""""""""""""
 " => global search
 """"""""""""""""""""""""""""""
-nnoremap <leader>g1  "gye<CR>:Rg -F "<C-R>g"<CR>:match Error /<C-R>g/<CR>
-nnoremap <leader>g2  "gy2e<CR>:Rg -F "<C-R>g"<CR>:match Error /<C-R>g/<CR>
-nnoremap <leader>g3  "gy3e<CR>:Rg -F "<C-R>g"<CR>:match Error /<C-R>g/<CR>
-nnoremap <leader>g4  "gy4e<CR>:Rg -F "<C-R>g"<CR>:match Error /<C-R>g/<CR>
-nnoremap <leader>g5  "gy5e<CR>:Rg -F "<C-R>g"<CR>:match Error /<C-R>g/<CR>
-nnoremap <leader>g6  "gy6e<CR>:Rg -F "<C-R>g"<CR>:match Error /<C-R>g/<CR>
-nnoremap <leader>g7  "gy7e<CR>:Rg -F "<C-R>g"<CR>:match Error /<C-R>g/<CR>
-nnoremap <leader>g8  "gy8e<CR>:Rg -F "<C-R>g"<CR>:match Error /<C-R>g/<CR>
-nnoremap <leader>g9  "gy9e<CR>:Rg -F "<C-R>g"<CR>:match Error /<C-R>g/<CR>
-nnoremap <leader>gw  "gyE<CR>:Rg -F "<C-R>g"<CR>:match Error /<C-R>g/<CR>
-nnoremap <leader>ge  "gy$<CR>:Rg -F "<C-R>g"<CR>:match Error /<C-R>g/<CR>
+function! LinesearchForRegisterg()
+    let line = @g
+    let repl = substitute(line, "\\", "\\\\\\\\", "g")
+    let repl = substitute(repl, "[", "\\\\[", "g")
+    let repl = substitute(repl, "]", "\\\\]", "g")
+    let repl = substitute(repl, "\\.", "\\\\.", "g")
+    let repl = substitute(repl, "/", "\\\\/", "g")
+    let repl = substitute(repl, "*", "\\\\*", "g")
+    let @g = repl
+endfunction
+
+nnoremap <leader>g1  "gye<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
+nnoremap <leader>g2  "gy2e<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
+nnoremap <leader>g3  "gy3e<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
+nnoremap <leader>g4  "gy4e<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
+nnoremap <leader>g5  "gy5e<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
+nnoremap <leader>g6  "gy6e<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
+nnoremap <leader>g7  "gy7e<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
+nnoremap <leader>g8  "gy8e<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
+nnoremap <leader>g9  "gy9e<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
+nnoremap <leader>gw  "gyE<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
+nnoremap <leader>ge  "gy$<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
 
 """"""""""""""""""""""""""""""
 " => Local search
 """"""""""""""""""""""""""""""
-nnoremap <leader>l1  "lye<CR>/<C-R>l<CR>:match Error /<C-R>l/<CR>
-nnoremap <leader>l2  "ly2e<CR>/<C-R>l<CR>:match Error /<C-R>l/<CR>
-nnoremap <leader>l3  "ly3e<CR>/<C-R>l<CR>:match Error /<C-R>l/<CR>
-nnoremap <leader>l4  "ly4e<CR>/<C-R>l<CR>:match Error /<C-R>l/<CR>
-nnoremap <leader>l5  "ly5e<CR>/<C-R>l<CR>:match Error /<C-R>l/<CR>
-nnoremap <leader>l6  "ly6e<CR>/<C-R>l<CR>:match Error /<C-R>l/<CR>
-nnoremap <leader>l7  "ly7e<CR>/<C-R>l<CR>:match Error /<C-R>l/<CR>
-nnoremap <leader>l8  "ly8e<CR>/<C-R>l<CR>:match Error /<C-R>l/<CR>
-nnoremap <leader>l9  "ly9e<CR>/<C-R>l<CR>:match Error /<C-R>l/<CR>
-nnoremap <leader>lw  "lyE<CR>/<C-R>l<CR>:match Error /<C-R>l/<CR>
-nnoremap <leader>le  "ly$<CR>/<C-R>l<CR>:match Error /<C-R>l/<CR>
+function! LinesearchForRegisterl()
+    let line = @l
+    let repl = substitute(line, "\\", "\\\\\\\\", "g")
+    let repl = substitute(repl, "[", "\\\\[", "g")
+    let repl = substitute(repl, "]", "\\\\]", "g")
+    let repl = substitute(repl, "\\.", "\\\\.", "g")
+    let repl = substitute(repl, "/", "\\\\/", "g")
+    let repl = substitute(repl, "*", "\\\\*", "g")
+    let @l = repl
+endfunction
 
+nnoremap <leader>l1  "lye<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
+nnoremap <leader>l2  "ly2e<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
+nnoremap <leader>l3  "ly3e<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
+nnoremap <leader>l4  "ly4e<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
+nnoremap <leader>l5  "ly5e<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
+nnoremap <leader>l6  "ly6e<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
+nnoremap <leader>l7  "ly7e<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
+nnoremap <leader>l8  "ly8e<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
+nnoremap <leader>l9  "ly9e<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
+nnoremap <leader>lw  "lyE<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
+nnoremap <leader>le  "ly$<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
 
 """"""""""""""""""""""""""""""
 " => windows GUI settings
