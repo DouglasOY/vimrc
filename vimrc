@@ -15,13 +15,10 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'jnurmine/Zenburn'
-Plugin 'nanotech/jellybeans.vim'
+
 Plugin 'joshdick/onedark.vim'
 Plugin 'rakr/vim-one'
 Plugin 'jacoborus/tender.vim'
-
-Plugin 'tomasr/molokai'
 
 " nerdtree, ctrlp, vimgrep, tools for vim IDE
 Plugin 'scrooloose/nerdtree'
@@ -208,30 +205,11 @@ let g:netrw_sort_sequence = '[\/]$,*'
 """"""""""""""""""""""""""""""
 " => vimgrep
 """"""""""""""""""""""""""""""
-silent! map <F2> :b#<CR>
-silent! map <F3> :cnext<CR>
-silent! map <F4> :cprev<CR>
-
 function! VimgrepHightWord()
     let curword = expand('<cword>')
     execute 'vimgrep /' . curword . '/j  **'
 endfunction
 nnoremap <leader>vg :call VimgrepHightWord()<cr>
-
-""""""""""""""""""""""""""""""
-" => ackgrep
-""""""""""""""""""""""""""""""
-function! AckgrepCurrentWord()
-    let curword = expand('<cword>')
-    execute 'Ack -i --match "' . curword . '"'
-endfunction
-nnoremap <leader>ag :call AckgrepCurrentWord()<cr>
-
-function! AckgrepZWord()
-    let curword = @z
-    execute 'Ack --literal --match "' . curword . '"'
-endfunction
-nnoremap <leader>az :call AckgrepZWord()<cr>
 
 """"""""""""""""""""""""""""""
 " => ripgrep
@@ -241,6 +219,12 @@ function! RipgrepCurrentWord()
     execute 'Rg ' . curword
 endfunction
 nnoremap <leader>rg :call RipgrepCurrentWord()<cr>
+
+function! RipgrepPerlSubFunction()
+    let curword = expand('<cword>')
+    execute 'Rg "sub\s+' . curword . '" ./'
+endfunction
+nnoremap <leader>rp :call RipgrepPerlSubFunction()<cr>
 
 function! RipgrepZWord()
     let curword = @z
@@ -258,17 +242,15 @@ let g:ctrlp_cmd = 'CtrlPMRU'
 """"""""""""""""""""""""""""""
 command! ABD 'a,'bd
 command! ABY 'a,'by
-command! ZF  'a,'bfold | 'a
+nnoremap <Leader>zz  :'a,'bfold<cr>
 nnoremap <C-a>   :'a,'by<cr>
 nnoremap <C-e>   :'a,'bd<cr>
 nnoremap <C-u>   :%!sort -u<cr>
 
-" silent! map <F2> :b1<CR>
+nnoremap <Leader>b1  :b1<CR>
+nnoremap <Leader>bp  :b#<CR>
+
 " nnoremap * :keepjumps normal *``<cr>
-" silent! map <F5> :%!sort -u<CR>
-" silent! map <F10> :set noignorecase<CR>
-" silent! map <F11> :set nonumber<CR>
-" silent! map <F12> dd 
 " highlight nonascii guibg=Conceal ctermbg=1 term=standout
 " au BufReadPost * syntax match nonascii "[^\u0000-\u007F]"
 
@@ -310,10 +292,10 @@ function! Linesearchnoheader()
     let repl = substitute(repl, "*", "\\\\*", "g")
     let @/ = repl
 endfunction
-nnoremap <leader>h :call Linesearchnoheader()<cr>
+nnoremap <leader>lh :call Linesearchnoheader()<cr>
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 nnoremap <leader>ce :cd %:p:h<CR>:e .<CR>
-nnoremap <leader>p  :!echo %:p<CR>
+nnoremap <leader>cp  :!echo %:p<CR>
 
 function! Appendwordtoregister()
     let var_s = getreg('/', 1)
@@ -623,8 +605,8 @@ nnoremap <Leader>su  :%!sort -u<cr>
 
 " hi Search term=reverse ctermfg=0 ctermbg=10 guifg=Black guibg=Yellow
 
-nnoremap <Leader>ru :resize +10<cr>
-nnoremap <Leader>rd :resize -10<cr>
+nnoremap <Leader>da :resize +10<cr>
+nnoremap <Leader>db :resize -10<cr>
 
 nnoremap <F9> <c-w>H
 nnoremap <F10> <c-w>K
