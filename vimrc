@@ -17,8 +17,6 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'altercation/vim-colors-solarized'
 
 Plugin 'joshdick/onedark.vim'
-Plugin 'rakr/vim-one'
-Plugin 'jacoborus/tender.vim'
 
 " nerdtree, ctrlp, vimgrep, tools for vim IDE
 Plugin 'scrooloose/nerdtree'
@@ -27,7 +25,6 @@ Plugin 'https://github.com/kien/ctrlp.vim.git'
 Plugin 'luochen1990/rainbow'
 
 " Plugin 'Valloric/YouCompleteMe'
-Plugin 'dhruvasagar/vim-table-mode'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -186,8 +183,8 @@ set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 " Always show the status line
 set laststatus=2
 
-set splitbelow 
-set splitright 
+set splitbelow
+set splitright
 
 """"""""""""""""""""""""""""""
 " netrw -- Vexplore
@@ -226,11 +223,11 @@ function! RipgrepPerlSubFunction()
 endfunction
 nnoremap <leader>rp :call RipgrepPerlSubFunction()<cr>
 
-function! RipgrepZWord()
+function! RipgrepRegisterZWord()
     let curword = @z
-    execute 'Rg "' . curword . '" ./'
+    execute 'Rg -w "' . curword . '" ./'
 endfunction
-nnoremap <leader>rz :call RipgrepZWord()<cr>
+nnoremap <leader>rz :call RipgrepRegisterZWord()<cr>
 
 """"""""""""""""""""""""""""""
 " => CtrlP
@@ -238,17 +235,36 @@ nnoremap <leader>rz :call RipgrepZWord()<cr>
 let g:ctrlp_cmd = 'CtrlPMRU'
 
 """"""""""""""""""""""""""""""
+" => vimdiff color scheme
+""""""""""""""""""""""""""""""
+highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
+
+""""""""""""""""""""""""""""""
 " => map, command
 """"""""""""""""""""""""""""""
 command! ABD 'a,'bd
 command! ABY 'a,'by
 nnoremap <Leader>zz  :'a,'bfold<cr>
+nnoremap <Leader>zi  :set foldmethod=indent<cr>
 nnoremap <C-a>   :'a,'by<cr>
 nnoremap <C-e>   :'a,'bd<cr>
 nnoremap <C-u>   :%!sort -u<cr>
 
-nnoremap <Leader>b1  :b1<CR>
-nnoremap <Leader>bp  :b#<CR>
+nnoremap <Leader>b1  :buffer 1<CR>
+nnoremap <Leader>b2  :buffer 2<CR>
+nnoremap <Leader>b3  :buffer 3<CR>
+nnoremap <Leader>b4  :buffer 4<CR>
+nnoremap <Leader>b5  :buffer 5<CR>
+nnoremap <Leader>b6  :buffer 6<CR>
+nnoremap <Leader>b7  :buffer 7<CR>
+nnoremap <Leader>b8  :buffer 8<CR>
+nnoremap <Leader>b9  :buffer 9<CR>
+nnoremap <Leader>bb  :buffer #<CR>
+nnoremap <Leader>bp  :buffer #<CR>
+nnoremap <Leader>bc  :cclose<CR>
 
 " nnoremap * :keepjumps normal *``<cr>
 " highlight nonascii guibg=Conceal ctermbg=1 term=standout
@@ -293,7 +309,7 @@ function! Linesearchnoheader()
     let @/ = repl
 endfunction
 nnoremap <leader>lh :call Linesearchnoheader()<cr>
-nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
+nnoremap <leader>cw :cd %:p:h<CR>:pwd<CR>
 nnoremap <leader>ce :cd %:p:h<CR>:e .<CR>
 nnoremap <leader>cp  :!echo %:p<CR>
 
@@ -323,7 +339,7 @@ endfunction
 nnoremap <leader>nl :call Nohighlightnow()<cr>
 
 function! CountDiffsVimdiff()
-    let winview = winsaveview() 
+    let winview = winsaveview()
     let num_diffs = 0
     if &diff
         let pos = getpos(".")
@@ -408,9 +424,9 @@ nnoremap <leader>m6 :call ColorAnotherWord('3match', 'SpellBad')<cr>
 nnoremap <leader>mn :match none<cr>:2match none<cr>:3match none<cr>
 
 """"""""""""""""""""""""""""""
-" => global increasing number 
+" => global increasing number
 """"""""""""""""""""""""""""""
-let g:globalincreasingcounter = 0 
+let g:globalincreasingcounter = 0
 function! GlobalIncreasingNumber()
     let g:globalincreasingcounter += 1
     return g:globalincreasingcounter
@@ -488,16 +504,6 @@ nnoremap <Leader>ts :!echo --==<C-R><C-w>==-- ;ici <C-R><C-W><CR>
 """"""""""""""""""""""""""""""
 set clipboard=unnamedplus
 
-nnoremap <Leader>xp1  :call system('xclip', @0)<CR>
-nnoremap <Leader>xp2  :call system('xclip -selection clipboard', @0)<CR>
-nnoremap <Leader>xy1  :read !xclip -o<CR>
-nnoremap <Leader>xy2  :read !xclip -o -selection clipboard<CR>
-
-" 设置快捷键将选中文本块复制至系统剪贴板
-vnoremap <Leader>y "+y
-" 设置快捷键将系统剪贴板内容粘贴至 vim
-nnoremap <Leader>p "+gp
-
 """"""""""""""""""""""""""""""
 " => global search
 """"""""""""""""""""""""""""""
@@ -573,16 +579,13 @@ endif
 """"""""""""""""""""""""""""""
 " => changed frequently
 """"""""""""""""""""""""""""""
-" colorscheme zenburn
-" colorscheme golden
-" colorscheme vividchalk
-" colorscheme solarized
-" colorscheme tender
 colorscheme one-dark
 
 hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
 hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
 set cursorline
+" let g:airline_theme = 'jellybeans'
+let g:airline#extensions#whitespace#enabled = 0
 
 " Substitute with ascending numbers
 " %s/pattern/\="pattern" . (line('.') + 8800)/
