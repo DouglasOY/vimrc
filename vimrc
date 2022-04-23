@@ -5,25 +5,26 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
+" set rtp+=/usr/local/share/vim/vundle/Vundle.vim/
+" call vundle#begin('/usr/local/share/vim/vundle/')
+
 set rtp+=$VIM/vundle/Vundle.vim/
 call vundle#begin('$VIM/vundle/')
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-
 Plugin 'altercation/vim-colors-solarized'
-
 Plugin 'joshdick/onedark.vim'
-
+Plugin 'rakr/vim-one'
+" Plugin 'jacoborus/tender.vim'
+Plugin 'fatih/vim-go'
+Plugin 'tomasr/molokai'
 " nerdtree, ctrlp, vimgrep, tools for vim IDE
 Plugin 'scrooloose/nerdtree'
 Plugin 'https://github.com/kien/ctrlp.vim.git'
-
 Plugin 'luochen1990/rainbow'
-
 " Plugin 'Valloric/YouCompleteMe'
 
 " All of your Plugins must be added before the following line
@@ -100,6 +101,9 @@ set viminfo='20,\"50	" read/write a .viminfo file, don't store more " than 50 li
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
 syntax enable
+if (has("termguicolors"))
+  set termguicolors
+endif
 
 set background=dark
 
@@ -176,6 +180,7 @@ set updatecount=75
 set comments=b:#,:%,fb:-,n:),n:> fo=cqrt
 
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+set clipboard=unnamed
 
 """"""""""""""""""""""""""""""
 " => Status line
@@ -213,7 +218,7 @@ nnoremap <leader>vg :call VimgrepHightWord()<cr>
 """"""""""""""""""""""""""""""
 function! RipgrepCurrentWord()
     let curword = expand('<cword>')
-    execute 'Rg ' . curword
+    execute 'Rg -F ' . curword
 endfunction
 nnoremap <leader>rg :call RipgrepCurrentWord()<cr>
 
@@ -233,6 +238,58 @@ nnoremap <leader>rz :call RipgrepRegisterZWord()<cr>
 " => CtrlP
 """"""""""""""""""""""""""""""
 let g:ctrlp_cmd = 'CtrlPMRU'
+
+""""""""""""""""""""""""""""""
+" => global search
+""""""""""""""""""""""""""""""
+function! LinesearchForRegisterg()
+    let line = @g
+    let repl = substitute(line, "\\", "\\\\\\\\", "g")
+    let repl = substitute(repl, "[", "\\\\[", "g")
+    let repl = substitute(repl, "]", "\\\\]", "g")
+    let repl = substitute(repl, "\\.", "\\\\.", "g")
+    let repl = substitute(repl, "/", "\\\\/", "g")
+    let repl = substitute(repl, "*", "\\\\*", "g")
+    let @g = repl
+endfunction
+
+nnoremap <leader>g1  "gye<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
+nnoremap <leader>g2  "gy2e<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
+nnoremap <leader>g3  "gy3e<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
+nnoremap <leader>g4  "gy4e<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
+nnoremap <leader>g5  "gy5e<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
+nnoremap <leader>g6  "gy6e<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
+nnoremap <leader>g7  "gy7e<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
+nnoremap <leader>g8  "gy8e<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
+nnoremap <leader>g9  "gy9e<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
+nnoremap <leader>gw  "gyE<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
+nnoremap <leader>ge  "gy$<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
+
+""""""""""""""""""""""""""""""
+" => Local search
+""""""""""""""""""""""""""""""
+function! LinesearchForRegisterl()
+    let line = @l
+    let repl = substitute(line, "\\", "\\\\\\\\", "g")
+    let repl = substitute(repl, "[", "\\\\[", "g")
+    let repl = substitute(repl, "]", "\\\\]", "g")
+    let repl = substitute(repl, "\\.", "\\\\.", "g")
+    let repl = substitute(repl, "/", "\\\\/", "g")
+    let repl = substitute(repl, "*", "\\\\*", "g")
+    let @l = repl
+endfunction
+
+nnoremap <leader>l1  "lye<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
+nnoremap <leader>l2  "ly2e<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
+nnoremap <leader>l3  "ly3e<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
+nnoremap <leader>l4  "ly4e<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
+nnoremap <leader>l5  "ly5e<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
+nnoremap <leader>l6  "ly6e<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
+nnoremap <leader>l7  "ly7e<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
+nnoremap <leader>l8  "ly8e<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
+nnoremap <leader>l9  "ly9e<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
+nnoremap <leader>lw  "lyE<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
+nnoremap <leader>le  "ly$<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
 
 """"""""""""""""""""""""""""""
 " => vimdiff color scheme
@@ -266,7 +323,7 @@ nnoremap <Leader>bb  :buffer #<CR>
 nnoremap <Leader>bp  :buffer #<CR>
 nnoremap <Leader>bc  :cclose<CR>
 
-" nnoremap * :keepjumps normal *``<cr>
+
 " highlight nonascii guibg=Conceal ctermbg=1 term=standout
 " au BufReadPost * syntax match nonascii "[^\u0000-\u007F]"
 
@@ -451,7 +508,6 @@ hi MBEVisibleActiveChanged guifg=#F1266F guibg=fg
 """"""""""""""""""""""""""""""
 " => airline-themes.vim
 """"""""""""""""""""""""""""""
-" let g:airline_theme='papercolor'
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#whitespace#checks = [ ]
 " let g:airline#extensions#whitespace#checks = [ 'indent', 'trailing', 'long', 'mixed-indent-file' ]
@@ -460,25 +516,6 @@ let g:airline#extensions#whitespace#checks = [ ]
 " => CtrlP.vim
 """"""""""""""""""""""""""""""
 let g:ctrlp_cmd = 'CtrlPMRU'
-
-""""""""""""""""""""""""""""""
-" => tender.vim
-""""""""""""""""""""""""""""""
-" If you have vim >=8.0 or Neovim >= 0.1.5
-if (has("termguicolors"))
-  set termguicolors
-endif
-
-" set lighline theme inside lightline config
-" let g:lightline = { 'colorscheme': 'tender' }
-" set airline theme
-" let g:airline_theme = 'tender'
-
-""""""""""""""""""""""""""""""
-" => onedark.vim
-""""""""""""""""""""""""""""""
-let g:lightline = { 'colorscheme': 'onedark' }
-let g:airline_theme='onedark'
 
 """"""""""""""""""""""""""""""
 " => rainbow.vim
@@ -505,58 +542,6 @@ nnoremap <Leader>ts :!echo --==<C-R><C-w>==-- ;ici <C-R><C-W><CR>
 set clipboard=unnamedplus
 
 """"""""""""""""""""""""""""""
-" => global search
-""""""""""""""""""""""""""""""
-function! LinesearchForRegisterg()
-    let line = @g
-    let repl = substitute(line, "\\", "\\\\\\\\", "g")
-    let repl = substitute(repl, "[", "\\\\[", "g")
-    let repl = substitute(repl, "]", "\\\\]", "g")
-    let repl = substitute(repl, "\\.", "\\\\.", "g")
-    let repl = substitute(repl, "/", "\\\\/", "g")
-    let repl = substitute(repl, "*", "\\\\*", "g")
-    let @g = repl
-endfunction
-
-nnoremap <leader>g1  "gye<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
-nnoremap <leader>g2  "gy2e<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
-nnoremap <leader>g3  "gy3e<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
-nnoremap <leader>g4  "gy4e<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
-nnoremap <leader>g5  "gy5e<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
-nnoremap <leader>g6  "gy6e<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
-nnoremap <leader>g7  "gy7e<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
-nnoremap <leader>g8  "gy8e<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
-nnoremap <leader>g9  "gy9e<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
-nnoremap <leader>gw  "gyE<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
-nnoremap <leader>ge  "gy$<CR>:Rg -F "<C-R>g"<CR>:call LinesearchForRegisterg()<CR>:match WildMenu /<C-R>g/<CR>
-
-""""""""""""""""""""""""""""""
-" => Local search
-""""""""""""""""""""""""""""""
-function! LinesearchForRegisterl()
-    let line = @l
-    let repl = substitute(line, "\\", "\\\\\\\\", "g")
-    let repl = substitute(repl, "[", "\\\\[", "g")
-    let repl = substitute(repl, "]", "\\\\]", "g")
-    let repl = substitute(repl, "\\.", "\\\\.", "g")
-    let repl = substitute(repl, "/", "\\\\/", "g")
-    let repl = substitute(repl, "*", "\\\\*", "g")
-    let @l = repl
-endfunction
-
-nnoremap <leader>l1  "lye<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
-nnoremap <leader>l2  "ly2e<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
-nnoremap <leader>l3  "ly3e<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
-nnoremap <leader>l4  "ly4e<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
-nnoremap <leader>l5  "ly5e<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
-nnoremap <leader>l6  "ly6e<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
-nnoremap <leader>l7  "ly7e<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
-nnoremap <leader>l8  "ly8e<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
-nnoremap <leader>l9  "ly9e<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
-nnoremap <leader>lw  "lyE<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
-nnoremap <leader>le  "ly$<CR>:call LinesearchForRegisterl()<CR>/<C-R>l<CR>:match WildMenu /<C-R>l/<CR>
-
-""""""""""""""""""""""""""""""
 " => windows GUI settings
 """"""""""""""""""""""""""""""
 set guifont=Consolas:h11
@@ -579,12 +564,11 @@ endif
 """"""""""""""""""""""""""""""
 " => changed frequently
 """"""""""""""""""""""""""""""
-colorscheme one-dark
+colorscheme molokai
 
-hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
-hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white guibg=darkblue guifg=white
+hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkblue guifg=white
 set cursorline
-" let g:airline_theme = 'jellybeans'
 let g:airline#extensions#whitespace#enabled = 0
 
 " Substitute with ascending numbers
@@ -594,28 +578,37 @@ let g:airline#extensions#whitespace#enabled = 0
 " let @/='\d00' | keepjumps silent execute 'normal! gg' | for i in range(1, 9) | keepjumps silent execute 'normal! n' | execute 's/\d00/[' . i . ']/'  | endfor
 " :%s/    \([\u4e00-\u9fff," ]\{2,18}\)$/\="第" . GlobalIncreasingNumber() .  "部分  " . submatch(1)/
 
+function! <SID>ColorGroupSynStack()
+    if !exists("*synstack")
+        return
+    endif
+    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+
+" a little more informative version of the above
+nnoremap <Leader>cg :call <SID>ColorGroupSynStack()<CR>
+
 """"""""""""""""""""""""""""""
 " => most common
 """"""""""""""""""""""""""""""
 " Ignore case when searching
 set noignorecase
 
-
 nnoremap <Leader>sp  :set paste<cr>
 nnoremap <Leader>si  :set ignorecase<cr>
 nnoremap <Leader>sn  :set noignorecase<cr>
 nnoremap <Leader>su  :%!sort -u<cr>
-
+" nnoremap * :keepjumps normal *``<cr>
+nnoremap <Leader>sb :set nonumber<CR>
+nnoremap <Leader>da :resize +8<CR>
+nnoremap <Leader>db :resize -8<CR>
 " hi Search term=reverse ctermfg=0 ctermbg=10 guifg=Black guibg=Yellow
-
-nnoremap <Leader>da :resize +10<cr>
-nnoremap <Leader>db :resize -10<cr>
-
 nnoremap <F9> <c-w>H
 nnoremap <F10> <c-w>K
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vim的菜单乱码解决, 一定要加到最后.
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
+"" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" " vim的菜单乱码解决, 一定要加到最后.
+"" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" source $VIMRUNTIME/delmenu.vim
+"" source $VIMRUNTIME/menu.vim
+
